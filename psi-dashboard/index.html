@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordSolverX — PSI Comparison Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --bg: #0a0e1a; --surface: #111827; --surface2: #1f2937; --surface3: #374151;
+            --border: #1f2937; --text: #f9fafb; --text2: #d1d5db; --text3: #9ca3af;
+            --green: #10b981; --green-dim: #065f46; --red: #ef4444; --red-dim: #991b1b;
+            --amber: #f59e0b; --amber-dim: #92400e; --blue: #3b82f6; --purple: #8b5cf6;
+            --cyan: #06b6d4; --pink: #ec4899;
+        }
+        body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+        .container { max-width: 1440px; margin: 0 auto; padding: 0 24px; }
+
+        /* Header */
+        .header { background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%); padding: 48px 0 32px; border-bottom: 1px solid var(--border); }
+        .header h1 { font-size: 2.5rem; font-weight: 900; background: linear-gradient(135deg, var(--green), var(--cyan), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header p { color: var(--text2); margin-top: 8px; font-size: 1.1rem; }
+        .header .meta { display: flex; gap: 24px; margin-top: 16px; flex-wrap: wrap; }
+        .header .meta span { background: var(--surface2); padding: 6px 14px; border-radius: 8px; font-size: 0.85rem; color: var(--text3); }
+        .header .meta span b { color: var(--text); }
+
+        /* Tabs */
+        .tabs { display: flex; gap: 4px; padding: 16px 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; position: sticky; top: 0; background: var(--bg); z-index: 100; }
+        .tab { padding: 10px 20px; border-radius: 10px; cursor: pointer; font-size: 0.9rem; font-weight: 600; transition: all 0.2s; background: var(--surface); color: var(--text3); border: 1px solid transparent; }
+        .tab:hover { color: var(--text); background: var(--surface2); }
+        .tab.active { background: linear-gradient(135deg, #065f46, #0f766e); color: white; border-color: var(--green); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* Summary Cards */
+        .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; padding: 24px 0; }
+        .s-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; text-align: center; }
+        .s-card .num { font-size: 2.5rem; font-weight: 900; }
+        .s-card .label { font-size: 0.8rem; color: var(--text3); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 4px; }
+        .s-card.green .num { color: var(--green); }
+        .s-card.red .num { color: var(--red); }
+        .s-card.amber .num { color: var(--amber); }
+        .s-card.blue .num { color: var(--blue); }
+
+        /* Table */
+        .table-wrap { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border); margin: 16px 0; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+        th { background: var(--surface); color: var(--text3); font-weight: 600; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 0.05em; padding: 14px 12px; text-align: left; position: sticky; top: 0; cursor: pointer; user-select: none; white-space: nowrap; }
+        th:hover { color: var(--text); }
+        td { padding: 12px; border-top: 1px solid var(--border); white-space: nowrap; }
+        tr:hover td { background: rgba(16,185,129,0.04); }
+        .badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-weight: 700; font-size: 0.8rem; }
+        .badge.good { background: var(--green-dim); color: #6ee7b7; }
+        .badge.avg { background: var(--amber-dim); color: #fcd34d; }
+        .badge.bad { background: var(--red-dim); color: #fca5a5; }
+        .badge.neutral { background: var(--surface3); color: var(--text2); }
+        .delta-pos { color: var(--green); font-weight: 700; }
+        .delta-neg { color: var(--red); font-weight: 700; }
+        .delta-zero { color: var(--text3); }
+
+        /* Page Detail Modal */
+        .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 200; overflow-y: auto; padding: 24px; }
+        .modal-overlay.open { display: block; }
+        .modal { max-width: 1200px; margin: 0 auto; background: var(--surface); border-radius: 20px; border: 1px solid var(--border); padding: 32px; }
+        .modal h2 { font-size: 1.5rem; margin-bottom: 8px; }
+        .modal .close-btn { float: right; background: var(--surface2); border: none; color: var(--text); width: 40px; height: 40px; border-radius: 12px; cursor: pointer; font-size: 1.2rem; }
+        .modal .close-btn:hover { background: var(--red-dim); }
+
+        .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin: 20px 0; }
+        @media (max-width: 768px) { .compare-grid { grid-template-columns: 1fr; } }
+        .compare-col { background: var(--surface2); border-radius: 16px; padding: 20px; }
+        .compare-col h3 { font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .compare-col h3 .dot { width: 10px; height: 10px; border-radius: 50%; }
+        .compare-col h3 .dot.orig { background: var(--amber); }
+        .compare-col h3 .dot.new { background: var(--green); }
+
+        .metric-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+        .metric-row:last-child { border-bottom: none; }
+        .metric-name { color: var(--text2); font-size: 0.85rem; }
+        .metric-val { font-weight: 700; font-size: 1rem; }
+        .score-bar { height: 6px; border-radius: 3px; background: var(--surface3); margin-top: 6px; overflow: hidden; }
+        .score-bar-fill { height: 100%; border-radius: 3px; transition: width 0.5s; }
+
+        /* Issues List */
+        .issue-item { background: var(--surface2); border-radius: 12px; padding: 16px; margin: 8px 0; border-left: 4px solid var(--red); }
+        .issue-item.warn { border-left-color: var(--amber); }
+        .issue-item h4 { font-size: 0.95rem; margin-bottom: 4px; }
+        .issue-item p { font-size: 0.8rem; color: var(--text3); }
+        .issue-item .val { background: var(--red-dim); color: #fca5a5; padding: 2px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: 600; }
+
+        /* SEO Section */
+        .seo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 16px; padding: 16px 0; }
+        .seo-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
+        .seo-card h3 { font-size: 1rem; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+        .seo-card .count { background: var(--red-dim); color: #fca5a5; padding: 2px 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; }
+        .seo-card ul { list-style: none; max-height: 200px; overflow-y: auto; }
+        .seo-card li { padding: 4px 0; font-size: 0.8rem; color: var(--text2); border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .seo-card li code { background: var(--surface2); padding: 2px 6px; border-radius: 4px; font-size: 0.75rem; }
+
+        /* Fixes Section */
+        .fix-section { margin: 24px 0; }
+        .fix-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; margin: 12px 0; }
+        .fix-card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+        .fix-card .impact { display: inline-block; padding: 3px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 12px; }
+        .fix-card .impact.critical { background: var(--red-dim); color: #fca5a5; }
+        .fix-card .impact.high { background: var(--amber-dim); color: #fcd34d; }
+        .fix-card .impact.medium { background: var(--blue); color: white; }
+        .fix-card .impact.low { background: var(--surface3); color: var(--text2); }
+        .fix-card p { color: var(--text2); font-size: 0.9rem; margin-bottom: 8px; }
+        .fix-card pre { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px; overflow-x: auto; font-size: 0.8rem; color: var(--cyan); margin: 8px 0; }
+        .fix-card .file-ref { color: var(--purple); font-size: 0.8rem; font-weight: 600; }
+
+        /* Filter / Search */
+        .filter-bar { display: flex; gap: 12px; padding: 16px 0; flex-wrap: wrap; align-items: center; }
+        .filter-bar input { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; color: var(--text); font-size: 0.9rem; width: 300px; outline: none; }
+        .filter-bar input:focus { border-color: var(--green); }
+        .filter-bar select { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 16px; color: var(--text); font-size: 0.9rem; outline: none; }
+        .filter-bar .btn { padding: 10px 20px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface); color: var(--text2); cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: all 0.2s; }
+        .filter-bar .btn:hover { background: var(--green-dim); color: var(--green); }
+        .filter-bar .btn.active { background: var(--green-dim); color: var(--green); border-color: var(--green); }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>⚡ WordSolverX PSI Dashboard</h1>
+            <p>Side-by-side comparison: SSR (wordsolver.tech) vs Static Generation (wordsolverx-svelte.pages.dev)</p>
+            <div class="meta" id="headerMeta"></div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="tabs">
+            <div class="tab active" data-tab="overview">📊 Overview</div>
+            <div class="tab" data-tab="pages">📄 All Pages</div>
+            <div class="tab" data-tab="seo">🔍 SEO Issues</div>
+            <div class="tab" data-tab="fixes">🛠️ Code Fixes</div>
+            <div class="tab" data-tab="resources">📦 Resources</div>
+        </div>
+
+        <!-- OVERVIEW -->
+        <div class="tab-content active" id="tab-overview">
+            <div class="summary-grid" id="summaryGrid"></div>
+            <h2 style="padding: 16px 0 8px; font-size: 1.2rem;">Performance Distribution</h2>
+            <div class="table-wrap">
+                <table id="overviewTable">
+                    <thead><tr>
+                        <th data-sort="slug">Page</th>
+                        <th data-sort="origPerf">Original Perf</th>
+                        <th data-sort="newPerf">New Perf</th>
+                        <th data-sort="delta">Δ Delta</th>
+                        <th data-sort="origLCP">Orig LCP</th>
+                        <th data-sort="newLCP">New LCP</th>
+                        <th data-sort="origFCP">Orig FCP</th>
+                        <th data-sort="newFCP">New FCP</th>
+                        <th>Winner</th>
+                    </tr></thead>
+                    <tbody id="overviewBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- ALL PAGES -->
+        <div class="tab-content" id="tab-pages">
+            <div class="filter-bar">
+                <input type="text" id="pageSearch" placeholder="🔍 Search pages...">
+                <select id="pageFilter">
+                    <option value="all">All Pages</option>
+                    <option value="original-wins">Original Wins</option>
+                    <option value="new-wins">New Wins</option>
+                    <option value="tie">Tied</option>
+                    <option value="bad-perf">Performance < 80</option>
+                </select>
+                <select id="pageSort">
+                    <option value="delta-desc">Biggest Loss First</option>
+                    <option value="delta-asc">Biggest Gain First</option>
+                    <option value="orig-desc">Original Score ↓</option>
+                    <option value="new-desc">New Score ↓</option>
+                    <option value="alpha">A-Z</option>
+                </select>
+            </div>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr>
+                        <th>Page</th>
+                        <th>Type</th>
+                        <th>Original</th>
+                        <th>New</th>
+                        <th>Δ</th>
+                        <th>Orig Issues</th>
+                        <th>New Issues</th>
+                        <th>Action</th>
+                    </tr></thead>
+                    <tbody id="pagesBody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SEO -->
+        <div class="tab-content" id="tab-seo">
+            <h2 style="padding: 20px 0 8px; font-size: 1.3rem;">🔍 SEO Audit Findings</h2>
+            <div class="seo-grid" id="seoGrid"></div>
+            <div class="fix-section" id="seoFixes"></div>
+        </div>
+
+        <!-- FIXES -->
+        <div class="tab-content" id="tab-fixes">
+            <h2 style="padding: 20px 0 8px; font-size: 1.3rem;">🛠️ Performance & SEO Fixes</h2>
+            <div id="fixesContainer"></div>
+        </div>
+
+        <!-- RESOURCES -->
+        <div class="tab-content" id="tab-resources">
+            <h2 style="padding: 20px 0 8px; font-size: 1.3rem;">📦 Resource Analysis</h2>
+            <div id="resourcesContainer"></div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modalContent"></div>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+    // ============================================
+    // TAB NAVIGATION
+    // ============================================
+    document.querySelectorAll('.tab').forEach(t => {
+        t.addEventListener('click', () => {
+            document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
+            document.getElementById('tab-' + t.dataset.tab).classList.add('active');
+        });
+    });
+
+    // ============================================
+    // HELPERS
+    // ============================================
+    const pages = Object.values(PSI_DATA.pages);
+    const scoreBadge = (s) => {
+        if (s == null) return '<span class="badge neutral">N/A</span>';
+        const cls = s >= 90 ? 'good' : s >= 50 ? 'avg' : 'bad';
+        return `<span class="badge ${cls}">${s}</span>`;
+    };
+    const deltaStr = (d) => {
+        if (d > 0) return `<span class="delta-pos">+${d}</span>`;
+        if (d < 0) return `<span class="delta-neg">${d}</span>`;
+        return `<span class="delta-zero">0</span>`;
+    };
+    const metricBadge = (val, score) => {
+        if (score == null) return `<span class="badge neutral">${val}</span>`;
+        const cls = score >= 90 ? 'good' : score >= 50 ? 'avg' : 'bad';
+        return `<span class="badge ${cls}">${val}</span>`;
+    };
+    const getOrigPerf = (p) => p.original?.scores?.performance ?? null;
+    const getNewPerf = (p) => p.new?.scores?.performance ?? null;
+    const getDelta = (p) => (getNewPerf(p) ?? 0) - (getOrigPerf(p) ?? 0);
+    const getPageType = (slug) => {
+        if (slug.includes('answer-today')) return '📅 Answer Today';
+        if (slug.includes('archive')) return '📚 Archive';
+        if (slug.includes('solver')) return '🔧 Solver';
+        if (slug === 'homepage') return '🏠 Home';
+        return '📄 Page';
+    };
+
+    // ============================================
+    // HEADER META
+    // ============================================
+    document.getElementById('headerMeta').innerHTML = `
+        <span>📊 <b>${PSI_DATA.totalPages}</b> pages tested</span>
+        <span>🕐 Generated: <b>${new Date(PSI_DATA.generatedAt).toLocaleString()}</b></span>
+        <span>🔴 Original Avg: <b>${PSI_DATA.summary.originalAvgPerf}</b></span>
+        <span>🟢 New Avg: <b>${PSI_DATA.summary.newAvgPerf}</b></span>
+        <span>⬆️ Gains: <b>${PSI_DATA.summary.pagesWithGains}</b></span>
+        <span>⬇️ Losses: <b>${PSI_DATA.summary.pagesWithLosses}</b></span>
+    `;
+
+    // ============================================
+    // SUMMARY CARDS
+    // ============================================
+    document.getElementById('summaryGrid').innerHTML = `
+        <div class="s-card"><div class="num">${PSI_DATA.totalPages}</div><div class="label">Total Pages</div></div>
+        <div class="s-card amber"><div class="num">${PSI_DATA.summary.originalAvgPerf}</div><div class="label">Original Avg Perf</div></div>
+        <div class="s-card ${PSI_DATA.summary.newAvgPerf < PSI_DATA.summary.originalAvgPerf ? 'red' : 'green'}"><div class="num">${PSI_DATA.summary.newAvgPerf}</div><div class="label">New Avg Perf</div></div>
+        <div class="s-card green"><div class="num">${PSI_DATA.summary.pagesWithGains}</div><div class="label">Pages Improved</div></div>
+        <div class="s-card red"><div class="num">${PSI_DATA.summary.pagesWithLosses}</div><div class="label">Pages Regressed</div></div>
+        <div class="s-card blue"><div class="num">${PSI_DATA.summary.pagesTied}</div><div class="label">Pages Tied</div></div>
+    `;
+
+    // ============================================
+    // OVERVIEW TABLE
+    // ============================================
+    function renderOverview(sortKey, sortDir) {
+        const sorted = [...pages].sort((a, b) => {
+            const vals = {
+                slug: [a.slug, b.slug],
+                origPerf: [getOrigPerf(a), getOrigPerf(b)],
+                newPerf: [getNewPerf(a), getNewPerf(b)],
+                delta: [getDelta(a), getDelta(b)],
+                origLCP: [a.original?.metrics?.LCP?.numericValue || 0, b.original?.metrics?.LCP?.numericValue || 0],
+                newLCP: [a.new?.metrics?.LCP?.numericValue || 0, b.new?.metrics?.LCP?.numericValue || 0],
+                origFCP: [a.original?.metrics?.FCP?.numericValue || 0, b.original?.metrics?.FCP?.numericValue || 0],
+                newFCP: [a.new?.metrics?.FCP?.numericValue || 0, b.new?.metrics?.FCP?.numericValue || 0],
+            };
+            const [va, vb] = vals[sortKey] || [0, 0];
+            return sortDir === 'asc' ? (va > vb ? 1 : -1) : (va < vb ? 1 : -1);
+        });
+
+        document.getElementById('overviewBody').innerHTML = sorted.map(p => {
+            const origPerf = getOrigPerf(p);
+            const newPerf = getNewPerf(p);
+            const d = getDelta(p);
+            const orig = p.original?.metrics || {};
+            const nw = p.new?.metrics || {};
+            const winner = d > 0 ? '🟢 New' : d < 0 ? '🟡 Orig' : '⚪ Tie';
+            return `<tr onclick="openModal('${p.slug}')" style="cursor:pointer">
+                <td><b>${p.slug}</b><br><span style="color:var(--text3);font-size:0.7rem">${getPageType(p.slug)}</span></td>
+                <td>${scoreBadge(origPerf)}</td>
+                <td>${scoreBadge(newPerf)}</td>
+                <td>${deltaStr(d)}</td>
+                <td>${metricBadge(orig.LCP?.value || '-', orig.LCP?.score)}</td>
+                <td>${metricBadge(nw.LCP?.value || '-', nw.LCP?.score)}</td>
+                <td>${metricBadge(orig.FCP?.value || '-', orig.FCP?.score)}</td>
+                <td>${metricBadge(nw.FCP?.value || '-', nw.FCP?.score)}</td>
+                <td>${winner}</td>
+            </tr>`;
+        }).join('');
+    }
+    let currentSort = { key: 'delta', dir: 'asc' };
+    renderOverview('delta', 'asc');
+    document.querySelectorAll('#overviewTable th[data-sort]').forEach(th => {
+        th.addEventListener('click', () => {
+            const key = th.dataset.sort;
+            currentSort.dir = currentSort.key === key ? (currentSort.dir === 'asc' ? 'desc' : 'asc') : 'asc';
+            currentSort.key = key;
+            renderOverview(currentSort.key, currentSort.dir);
+        });
+    });
+
+    // ============================================
+    // ALL PAGES TABLE
+    // ============================================
+    function renderPages() {
+        const search = document.getElementById('pageSearch').value.toLowerCase();
+        const filter = document.getElementById('pageFilter').value;
+        const sort = document.getElementById('pageSort').value;
+
+        let filtered = pages.filter(p => {
+            if (search && !p.slug.toLowerCase().includes(search)) return false;
+            const d = getDelta(p);
+            if (filter === 'original-wins' && d >= 0) return false;
+            if (filter === 'new-wins' && d <= 0) return false;
+            if (filter === 'tie' && d !== 0) return false;
+            if (filter === 'bad-perf' && (getOrigPerf(p) ?? 100) >= 80 && (getNewPerf(p) ?? 100) >= 80) return false;
+            return true;
+        });
+
+        filtered.sort((a, b) => {
+            switch(sort) {
+                case 'delta-desc': return getDelta(a) - getDelta(b);
+                case 'delta-asc': return getDelta(b) - getDelta(a);
+                case 'orig-desc': return (getOrigPerf(b) ?? 0) - (getOrigPerf(a) ?? 0);
+                case 'new-desc': return (getNewPerf(b) ?? 0) - (getNewPerf(a) ?? 0);
+                case 'alpha': return a.slug.localeCompare(b.slug);
+                default: return 0;
+            }
+        });
+
+        document.getElementById('pagesBody').innerHTML = filtered.map(p => {
+            const origPerf = getOrigPerf(p);
+            const newPerf = getNewPerf(p);
+            const d = getDelta(p);
+            const origIssues = p.original?.issues?.length || 0;
+            const newIssues = p.new?.issues?.length || 0;
+            return `<tr>
+                <td><b>${p.slug}</b></td>
+                <td>${getPageType(p.slug)}</td>
+                <td>${scoreBadge(origPerf)}</td>
+                <td>${scoreBadge(newPerf)}</td>
+                <td>${deltaStr(d)}</td>
+                <td><span class="badge ${origIssues > 3 ? 'bad' : origIssues > 0 ? 'avg' : 'good'}">${origIssues}</span></td>
+                <td><span class="badge ${newIssues > 3 ? 'bad' : newIssues > 0 ? 'avg' : 'good'}">${newIssues}</span></td>
+                <td><button onclick="openModal('${p.slug}')" style="background:var(--green-dim);color:var(--green);border:1px solid var(--green);padding:4px 12px;border-radius:8px;cursor:pointer;font-weight:600;font-size:0.8rem">Details</button></td>
+            </tr>`;
+        }).join('');
+    }
+    document.getElementById('pageSearch').addEventListener('input', renderPages);
+    document.getElementById('pageFilter').addEventListener('change', renderPages);
+    document.getElementById('pageSort').addEventListener('change', renderPages);
+    renderPages();
+
+    // ============================================
+    // PAGE DETAIL MODAL
+    // ============================================
+    function openModal(slug) {
+        const p = pages.find(x => x.slug === slug);
+        if (!p) return;
+        const orig = p.original || {};
+        const nw = p.new || {};
+
+        const renderMetrics = (data, label) => {
+            const m = data.metrics || {};
+            return Object.entries(m).map(([k, v]) => `
+                <div class="metric-row">
+                    <span class="metric-name">${k}</span>
+                    <span class="metric-val">${v.value || '-'}</span>
+                </div>
+            `).join('');
+        };
+
+        const renderScores = (data) => {
+            const s = data.scores || {};
+            return Object.entries(s).map(([k, v]) => `
+                <div class="metric-row">
+                    <span class="metric-name">${k}</span>
+                    <span>${scoreBadge(v)}</span>
+                </div>
+            `).join('');
+        };
+
+        const renderIssues = (data) => {
+            const issues = data.issues || [];
+            if (!issues.length) return '<p style="color:var(--green);font-size:0.9rem">✅ No issues found!</p>';
+            return issues.map(i => `
+                <div class="issue-item ${i.score > 50 ? 'warn' : ''}">
+                    <h4>${i.title} <span class="val">${i.score}%</span></h4>
+                    <p>${i.displayValue || ''}</p>
+                    ${i.items?.length ? `<details style="margin-top:6px"><summary style="cursor:pointer;color:var(--cyan);font-size:0.75rem">Show resources</summary>${i.items.map(it => `<p style="font-size:0.7rem;color:var(--text3);word-break:break-all">${it.url} (${typeof it.wasted === 'number' ? (it.wasted/1024).toFixed(1)+'KB' : it.wasted})</p>`).join('')}</details>` : ''}
+                </div>
+            `).join('');
+        };
+
+        const renderNetwork = (data) => {
+            const n = data.network || {};
+            if (!n.totalRequests) return '<p>No network data</p>';
+            return `
+                <div class="metric-row"><span class="metric-name">Total Requests</span><span class="metric-val">${n.totalRequests}</span></div>
+                <div class="metric-row"><span class="metric-name">Total Transfer</span><span class="metric-val">${n.totalTransferKB} KB</span></div>
+                <h4 style="margin-top:12px;font-size:0.85rem;color:var(--text2)">Largest Resources</h4>
+                ${(n.largest || []).map(r => `
+                    <div style="font-size:0.75rem;color:var(--text3);padding:4px 0;border-bottom:1px solid var(--border)">
+                        <span class="badge neutral">${r.type}</span> ${(r.size/1024).toFixed(1)}KB
+                        <div style="word-break:break-all;opacity:0.7">${r.url}</div>
+                    </div>
+                `).join('')}
+            `;
+        };
+
+        document.getElementById('modalContent').innerHTML = `
+            <button class="close-btn" onclick="closeModal()">✕</button>
+            <h2>${slug}</h2>
+            <p style="color:var(--text3);font-size:0.85rem;margin-bottom:16px">${p.sitemap?.url || ''}</p>
+
+            <div class="compare-grid">
+                <div class="compare-col">
+                    <h3><span class="dot orig"></span> Original (SSR)</h3>
+                    ${renderScores(orig)}
+                    <h4 style="margin-top:16px;font-size:0.85rem;color:var(--text2)">Core Metrics</h4>
+                    ${renderMetrics(orig, 'Original')}
+                </div>
+                <div class="compare-col">
+                    <h3><span class="dot new"></span> New (Static)</h3>
+                    ${renderScores(nw)}
+                    <h4 style="margin-top:16px;font-size:0.85rem;color:var(--text2)">Core Metrics</h4>
+                    ${renderMetrics(nw, 'New')}
+                </div>
+            </div>
+
+            <h3 style="margin-top:20px;font-size:1rem">Issues — Original</h3>
+            ${renderIssues(orig)}
+            <h3 style="margin-top:20px;font-size:1rem">Issues — New</h3>
+            ${renderIssues(nw)}
+
+            <h3 style="margin-top:20px;font-size:1rem">Network — Original</h3>
+            ${renderNetwork(orig)}
+            <h3 style="margin-top:20px;font-size:1rem">Network — New</h3>
+            ${renderNetwork(nw)}
+        `;
+        document.getElementById('modalOverlay').classList.add('open');
+    }
+    function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+    document.getElementById('modalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeModal(); });
+
+    // ============================================
+    // SEO TAB
+    // ============================================
+    const seo = PSI_DATA.seoIssues;
+    document.getElementById('seoGrid').innerHTML = `
+        <div class="seo-card">
+            <h3>❌ Missing Canonical Tags <span class="count">${seo.missingCanonical.length} pages</span></h3>
+            <ul>${seo.missingCanonical.map(p => `<li><code>${p}</code></li>`).join('')}</ul>
+        </div>
+        <div class="seo-card">
+            <h3>❌ Missing Meta Descriptions <span class="count">${seo.missingMetaDesc.length} pages</span></h3>
+            <ul>${seo.missingMetaDesc.map(p => `<li><code>${p}</code></li>`).join('')}</ul>
+        </div>
+        <div class="seo-card">
+            <h3>❌ Missing og:title <span class="count">${seo.missingOgTitle} pages</span></h3>
+            <p style="color:var(--text3);font-size:0.85rem">Pages without Open Graph title tags will show poor previews on social media (Facebook, WhatsApp, Telegram, etc.)</p>
+        </div>
+        <div class="seo-card">
+            <h3>❌ Missing twitter:card <span class="count">${seo.missingTwitterCard} pages</span></h3>
+            <p style="color:var(--text3);font-size:0.85rem">Twitter/X card previews will not render properly without this meta tag.</p>
+        </div>
+        <div class="seo-card">
+            <h3>❌ Missing H1 Tags <span class="count">${seo.missingH1} pages</span></h3>
+            <p style="color:var(--text3);font-size:0.85rem">Every page must have exactly one H1 tag for proper heading hierarchy and SEO.</p>
+        </div>
+        <div class="seo-card">
+            <h3>❌ Images Without Alt Tags <span class="count">${seo.imagesWithoutAlt} images</span></h3>
+            <p style="color:var(--text3);font-size:0.85rem">Missing alt attributes hurt accessibility (WCAG) and image SEO. Google can't index images without alt text.</p>
+        </div>
+        <div class="seo-card">
+            <h3>❌ No Hreflang Tags</h3>
+            <p style="color:var(--text3);font-size:0.85rem">No hreflang tags found. Even for single-language sites, adding <code>hreflang="x-default"</code> helps Google serve the right version.</p>
+        </div>
+        <div class="seo-card">
+            <h3>⚠️ Missing Schema Types</h3>
+            <ul>${seo.missingSchemaTypes.map(s => `<li><code>${s}</code></li>`).join('')}</ul>
+            <p style="color:var(--text3);font-size:0.8rem;margin-top:8px">Adding BreadcrumbList, HowTo, VideoObject, and ItemList schemas can dramatically improve rich snippet eligibility.</p>
+        </div>
+    `;
+
+    // ============================================
+    // FIXES TAB
+    // ============================================
+    const fixes = [
+        {
+            impact: 'critical', title: '1. Google Analytics (gtag.js) — 151KB Blocking Everything',
+            desc: 'gtag.js is the single largest resource (151KB transferred, 62KB unused). It loads synchronously in app.html and takes 226ms bootup time. Lighthouse scores it 0/100 for unused JavaScript.',
+            file: 'src/app.html (lines 20-26)',
+            fix: `<!-- REMOVE this synchronous gtag -->\n<script async src="https://www.googletagmanager.com/gtag/js?id=G-8QRMXK049Z"></script>\n\n<!-- REPLACE with deferred loading -->\n<script>\nwindow.addEventListener('load', () => {\n  setTimeout(() => {\n    const s = document.createElement('script');\n    s.src = 'https://www.googletagmanager.com/gtag/js?id=G-8QRMXK0049Z';\n    s.async = true;\n    document.head.appendChild(s);\n    window.dataLayer = window.dataLayer || [];\n    function gtag(){dataLayer.push(arguments);}\n    gtag('js', new Date());\n    gtag('config', 'G-8QRMXK049Z');\n  }, 3000);\n});\n</script>`,
+            expectedImpact: 'FCP -200-400ms, removes 62KB unused JS from critical path'
+        },
+        {
+            impact: 'critical', title: '2. Render-Blocking CSS (29.2KB) — Blocks First Paint',
+            desc: 'The SvelteKit-generated CSS file loads synchronously in <head>, blocking rendering until fully downloaded. This is the primary reason FCP is slow.',
+            file: 'svelte.config.js + src/app.html',
+            fix: `<!-- In app.html, BEFORE %sveltekit.head%, inline critical CSS -->\n<!-- Then in the layout, add this script to defer non-critical CSS -->\n<script>\n// Defer loading of non-critical CSS\ndocument.querySelectorAll('link[rel="stylesheet"]').forEach(link => {\n  if (link.href.includes('_app/immutable')) {\n    link.media = 'print';\n    link.onload = () => { link.media = 'all'; };\n  }\n});\n</script>\n\n<!-- OR use SvelteKit's built-in options -->\n// In svelte.config.js, add to kit:\nkit: {\n  csp: { mode: 'auto' },\n  // Ensure Vite extracts critical CSS\n}`,
+            expectedImpact: 'FCP -150ms on all pages, eliminates render-blocking warning'
+        },
+        {
+            impact: 'critical', title: '3. No Image Preloading — LCP Suffers',
+            desc: 'Cloudinary images (LCP elements on answer pages) are not preloaded. No fetchpriority="high", no preconnect to Cloudinary CDN.',
+            file: 'src/app.html + all *-answer-today/+page.svelte files',
+            fix: `<!-- In app.html, add Cloudinary preconnect -->\n<link rel="preconnect" href="https://res.cloudinary.com" />\n\n<!-- In each answer page, add image preload in <svelte:head> -->\n<link rel="preload" as="image" fetchpriority="high"\n  href="https://res.cloudinary.com/duskwmekb/image/upload/f_webp,q_auto/wordle-answers-today"\n  type="image/webp" />\n\n<!-- On the <img> tag, add fetchpriority -->\n<img fetchpriority="high" loading="eager" ... />`,
+            expectedImpact: 'LCP -500ms on answer-today pages'
+        },
+        {
+            impact: 'high', title: '4. SvelteKit Ships 78KB Hydration JS (15 chunks) — Waterfall',
+            desc: 'Even with prerender=true, SvelteKit sends 15+ small JS chunks for client-side hydration. Each chunk = separate HTTP request. Creates waterfall delays.',
+            file: 'svelte.config.js + vite.config.js',
+            fix: `// In vite.config.js, add manual chunking:\nexport default defineConfig({\n  plugins: [sveltekit()],\n  build: {\n    rollupOptions: {\n      output: {\n        manualChunks(id) {\n          if (id.includes('node_modules')) {\n            if (id.includes('svelte')) return 'svelte-vendor';\n            if (id.includes('date-fns')) return 'date-fns';\n            return 'vendor';\n          }\n        }\n      }\n    }\n  }\n});\n\n// Also consider: if you DON'T need client JS on static pages,\n// disable hydration entirely:\n// In +layout.ts: export const csr = false;\n// (Only enable csr = true on pages with interactive components)`,
+            expectedImpact: 'Fewer HTTP requests, -50ms TTI, better caching'
+        },
+        {
+            impact: 'high', title: '5. Homepage Renders 40+ Cards — Huge Initial DOM',
+            desc: 'The homepage renders all 40+ GameCard components at once with gradient backgrounds, animations, and shadows. Massive initial DOM slows parsing.',
+            file: 'src/routes/+page.svelte',
+            fix: `<!-- Split the page into above-fold and below-fold sections -->\n<!-- Use IntersectionObserver to lazy-load below-fold cards -->\n\n<script>\n  import { onMount } from 'svelte';\n  let showBelowFold = $state(false);\n  \n  onMount(() => {\n    const observer = new IntersectionObserver(\n      ([entry]) => { if (entry.isIntersecting) showBelowFold = true; },\n      { rootMargin: '200px' }\n    );\n    observer.observe(document.getElementById('below-fold-trigger'));\n  });\n</script>\n\n<!-- Above fold: show only first 6-8 cards -->\n{#each answerTodayGames.slice(0, 8) as game}\n  <GameCard ... />\n{/each}\n\n<div id="below-fold-trigger"></div>\n\n<!-- Below fold: lazy load rest -->\n{#if showBelowFold}\n  {#each answerTodayGames.slice(8) as game}\n    <GameCard ... />\n  {/each}\n{/if}`,
+            expectedImpact: 'LCP -500ms, Speed Index -1s, smaller initial DOM'
+        },
+        {
+            impact: 'high', title: '6. SSR Streams HTML, Static Serves Blob — FCP Regression',
+            desc: 'SSR version streams HTML progressively (browser paints as it arrives). Static version serves a 31KB HTML blob that must be fully parsed before paint. This is WHY answer-today FCP went from 1.7s to 3.0s.',
+            file: 'Architecture decision',
+            fix: `// This is inherent to static generation. Mitigations:\n\n// 1. Inline critical CSS (see Fix #2) — most impactful\n// 2. Preload LCP resources (see Fix #3)\n// 3. Use <link rel="modulepreload"> for critical JS\n// 4. Add streaming hints in HTML:\n\n<!-- In app.html, add early hints -->\n<link rel="preload" as="style" href="/_app/immutable/assets/0.CEZc2VNz.css">\n<link rel="modulepreload" href="/_app/immutable/entry/app.DvPVTsDP.js">\n\n// 5. Consider: use Cloudflare Workers for edge SSR on\n//    content-heavy answer pages, keep static for evergreen pages`,
+            expectedImpact: 'FCP -200ms through progressive rendering simulation'
+        },
+        {
+            impact: 'medium', title: '7. No Google Fonts Preconnect Waste',
+            desc: 'app.html preconnects to fonts.googleapis.com and fonts.gstatic.com but NO Google Fonts appear to load. Two wasted DNS lookups.',
+            file: 'src/app.html',
+            fix: `<!-- If NO Google Fonts are used, REMOVE these: -->\n<!-- <link rel="preconnect" href="https://fonts.googleapis.com" /> -->\n<!-- <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /> -->\n\n<!-- If Google Fonts ARE used, add the actual font preload: -->\n<link rel="preload" as="font" type="font/woff2" crossorigin\n  href="https://fonts.gstatic.com/s/inter/v13/...woff2">`,
+            expectedImpact: 'Removes 2 unnecessary DNS lookups'
+        },
+        {
+            impact: 'medium', title: '8. JSON-LD Schema Bloat in HTML Body',
+            desc: 'Multiple pages embed large JSON-LD schemas directly in HTML body via {@html ...}. This adds to document size and parsing time.',
+            file: 'Multiple +page.svelte files, +layout.svelte',
+            fix: `<!-- Move ALL schemas to <svelte:head> consistently -->\n<!-- The homepage layout embeds Organization schema in the body -->\n<!-- Move it to <svelte:head> instead -->\n\n<svelte:head>\n  {@html \`<script type="application/ld+json">\${JSON.stringify(organizationSchema)}</script>\`}\n</svelte:head>\n\n<!-- Remove the {@html} from the body div -->`,
+            expectedImpact: 'Smaller HTML body, faster DOM parsing'
+        },
+        {
+            impact: 'medium', title: '9. PerformanceMonitor + AnalyticsTracker Run on Every Page',
+            desc: 'onMount() in +layout.svelte initializes PerformanceObserver and fires gtag page_view on EVERY page load, even static pages that need no interactivity.',
+            file: 'src/routes/+layout.svelte',
+            fix: `// Make monitoring lazy — only run after user interaction\n// or after first paint:\n\nonMount(() => {\n  // Defer monitoring to after first paint\n  requestIdleCallback(() => {\n    PerformanceMonitor.init();\n  });\n});\n\n// Or better: only track on interactive pages\n// Check if page has interactive elements before tracking`,
+            expectedImpact: 'Less main-thread work during critical rendering path'
+        },
+        {
+            impact: 'medium', title: '10. Cloudflare Pages Cache Headers',
+            desc: 'Static assets in _app/immutable/ have hashes (cache-busted). Should set 1-year cache headers. Add _headers file for Cloudflare Pages.',
+            file: 'static/_headers (create this file)',
+            fix: `# Cache immutable assets forever (they have content hashes)\n/_app/immutable/*\n  Cache-Control: public, max-age=31536000, immutable\n\n# Cache HTML pages for 5 minutes, serve stale while revalidating\n/*\n  Cache-Control: public, max-age=300, stale-while-revalidate=86400\n\n# Cache images\n/*.webp\n  Cache-Control: public, max-age=604800\n\n/*.png\n  Cache-Control: public, max-age=604800`,
+            expectedImpact: 'Better repeat-visit performance, improved crawl efficiency'
+        },
+        {
+            impact: 'high', title: '11. SEO: 23 Pages Missing Canonical Tags',
+            desc: 'All letter-wordle pages (3-12), game-dle solver/answer pages are missing canonical tags. This can cause duplicate content issues.',
+            file: 'All -letter-wordle/+page.svelte and game-dle pages',
+            fix: `<!-- Add canonical tag to EVERY page's <svelte:head> -->\n<svelte:head>\n  <link rel="canonical" href="https://wordsolver.tech/{page-slug}" />\n</svelte:head>\n\n<!-- Better: create a reusable SEO component -->\n<!-- src/lib/components/SEO/PageSEO.svelte -->\n<script>\n  let { title, description, canonical, ogImage } = $props();\n</script>\n<svelte:head>\n  <title>{title}</title>\n  <meta name="description" content={description} />\n  <link rel="canonical" href={canonical} />\n  <meta property="og:title" content={title} />\n  <meta property="og:description" content={description} />\n  <meta property="og:image" content={ogImage} />\n  <meta name="twitter:card" content="summary_large_image" />\n</svelte:head>`,
+            expectedImpact: 'Consolidates duplicate signals, improves crawl efficiency'
+        },
+        {
+            impact: 'high', title: '12. SEO: 30 Pages Missing Meta Descriptions',
+            desc: 'Without meta descriptions, Google generates its own snippets — usually worse for CTR. Every page needs a unique, compelling description.',
+            file: 'All pages listed in SEO audit',
+            fix: `<!-- Each page MUST have a unique meta description -->\n<!-- Optimal length: 150-160 characters -->\n<!-- Include target keyword naturally -->\n\n<!-- Example for dotadle-answer-today: -->\n<meta name="description" \n  content="Today's Dotadle answer for {date}. Get the Dota 2 hero of the day plus hints, clues, and our full Dotdle archive." />`,
+            expectedImpact: 'Better SERP snippets, higher CTR, improved rankings'
+        },
+        {
+            impact: 'high', title: '13. SEO: No Hreflang + No x-default',
+            desc: 'No hreflang tags found anywhere. Even English-only sites should add x-default to help Google understand language targeting.',
+            file: 'src/app.html or +layout.svelte',
+            fix: `<!-- In app.html or +layout.svelte <svelte:head> -->\n<link rel="alternate" hreflang="en" href="https://wordsolver.tech{path}" />\n<link rel="alternate" hreflang="x-default" href="https://wordsolver.tech{path}" />`,
+            expectedImpact: 'Better international SEO signals, prevents language confusion'
+        },
+        {
+            impact: 'medium', title: '14. SEO: Missing BreadcrumbList Schema on All Pages',
+            desc: 'Only some pages have BreadcrumbList schema. Every page should have it for rich breadcrumb display in Google SERPs.',
+            file: 'All +page.svelte files',
+            fix: `<!-- Add BreadcrumbList to every page -->\n{\n  "@context": "https://schema.org",\n  "@type": "BreadcrumbList",\n  "itemListElement": [\n    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://wordsolver.tech" },\n    { "@type": "ListItem", "position": 2, "name": "Solvers", "item": "https://wordsolver.tech/solver" },\n    { "@type": "ListItem", "position": 3, "name": "Wordle Solver" }\n  ]\n}`,
+            expectedImpact: 'Rich snippets in SERPs with clickable breadcrumbs'
+        },
+        {
+            impact: 'medium', title: '15. SEO: Images Missing alt Tags (9 images)',
+            desc: 'Several images lack alt attributes, hurting accessibility (WCAG 2.1 AA) and image SEO. Google cannot index images without descriptive alt text.',
+            file: 'worldle-answer-today, colordle, waffle-solver, globle, WordleDisplayWrapper, AuthorCard',
+            fix: `<!-- Every <img> MUST have an alt attribute -->\n<img \n  alt="Wordle answer for today showing green and yellow tiles"\n  loading="lazy"\n  fetchpriority="low"\n/>`,
+            expectedImpact: 'WCAG compliance, image search indexing, better accessibility score'
+        },
+        {
+            impact: 'medium', title: '16. SEO: No Internal Linking Strategy',
+            desc: 'Pages should cross-link to related content. Solver pages should link to their answer-today page and archive. Answer pages should link to the solver. This builds topical authority.',
+            file: 'All solver and answer pages',
+            fix: `<!-- Add InternalLinkSection to every solver/answer page -->\n<InternalLinkSection links={[\n  { href: '/wordle-answer-today', label: "Today's Wordle Answer" },\n  { href: '/wordle-answer-archive', label: 'Wordle Archive' },\n  { href: '/quordle-solver', label: 'Quordle Solver' },\n]} />`,
+            expectedImpact: 'Better crawl depth, topical authority, lower bounce rate'
+        },
+        {
+            impact: 'low', title: '17. SEO: robots.txt Missing Sitemap for New Domain',
+            desc: 'robots.txt on wordsolverx-svelte.pages.dev may not reference its own sitemap. New static site needs its own sitemap declaration.',
+            file: 'static/robots.txt',
+            fix: `User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: https://wordsolverx-svelte.pages.dev/sitemap.xml`,
+            expectedImpact: 'Ensures Google can discover all pages on new domain'
+        },
+        {
+            impact: 'low', title: '18. Remove esbuild console.drop — Use Vite Properly',
+            desc: 'esbuild.drop: ["console", "debugger"] strips console from production, but the performance.ts file has console.warn that evaluates conditions first. Better to use a proper logging library or tree-shake unused monitoring.',
+            file: 'vite.config.js',
+            fix: `// Keep esbuild.drop for production but ensure performance monitoring\n// doesn't run on pages that don't need it.\n// Consider: only import performance.ts on interactive pages\n// not in the global +layout.svelte`,
+            expectedImpact: 'Cleaner production builds, no unnecessary observer overhead'
+        }
+    ];
+
+    document.getElementById('fixesContainer').innerHTML = fixes.map(f => `
+        <div class="fix-card">
+            <span class="impact ${f.impact}">${f.impact}</span>
+            <h3>${f.title}</h3>
+            <p>${f.desc}</p>
+            <p class="file-ref">📁 ${f.file}</p>
+            <details><summary style="cursor:pointer;color:var(--cyan);font-size:0.85rem;margin:8px 0">Show Fix Code</summary><pre>${f.fix.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</pre></details>
+            <p style="color:var(--green);font-size:0.85rem"><b>Expected:</b> ${f.expectedImpact}</p>
+        </div>
+    `).join('');
+
+    // ============================================
+    // RESOURCES TAB
+    // ============================================
+    function renderResources() {
+        // Aggregate resource data across pages
+        const origResources = {};
+        const newResources = {};
+        let origTotalKB = 0, newTotalKB = 0;
+
+        pages.forEach(p => {
+            const on = p.original?.network;
+            const nn = p.new?.network;
+            if (on?.resources) {
+                Object.entries(on.resources).forEach(([type, data]) => {
+                    if (!origResources[type]) origResources[type] = { count: 0, bytes: 0 };
+                    origResources[type].count += data.count;
+                    origResources[type].bytes += data.bytes;
+                });
+                origTotalKB += on.totalTransferKB || 0;
+            }
+            if (nn?.resources) {
+                Object.entries(nn.resources).forEach(([type, data]) => {
+                    if (!newResources[type]) newResources[type] = { count: 0, bytes: 0 };
+                    newResources[type].count += data.count;
+                    newResources[type].bytes += data.bytes;
+                });
+                newTotalKB += nn.totalTransferKB || 0;
+            }
+        });
+
+        const renderResTable = (resources, totalKB) => {
+            const sorted = Object.entries(resources).sort((a, b) => b[1].bytes - a[1].bytes);
+            return `
+                <div class="metric-row"><span class="metric-name"><b>Total Transfer</b></span><span class="metric-val">${(totalKB / pages.length).toFixed(1)} KB avg</span></div>
+                ${sorted.map(([type, data]) => `
+                    <div class="metric-row">
+                        <span class="metric-name">${type}</span>
+                        <span class="metric-val">${data.count} requests, ${(data.bytes/1024).toFixed(1)} KB</span>
+                    </div>
+                `).join('')}
+            `;
+        };
+
+        // Top issues across all pages
+        const allIssues = {};
+        pages.forEach(p => {
+            [p.original, p.new].forEach(site => {
+                (site?.issues || []).forEach(issue => {
+                    if (!allIssues[issue.title]) allIssues[issue.title] = { count: 0, totalScore: 0, sites: new Set() };
+                    allIssues[issue.title].count++;
+                    allIssues[issue.title].totalScore += issue.score;
+                });
+            });
+        });
+        const topIssues = Object.entries(allIssues)
+            .sort((a, b) => a[1].count - b[1].count)
+            .slice(0, 20);
+
+        document.getElementById('resourcesContainer').innerHTML = `
+            <div class="compare-grid">
+                <div class="compare-col">
+                    <h3><span class="dot orig"></span> Original — Avg Resources Per Page</h3>
+                    ${renderResTable(origResources, origTotalKB)}
+                </div>
+                <div class="compare-col">
+                    <h3><span class="dot new"></span> New — Avg Resources Per Page</h3>
+                    ${renderResTable(newResources, newTotalKB)}
+                </div>
+            </div>
+            <h3 style="margin-top:24px;font-size:1.1rem">Top Issues Across All Pages</h3>
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>Issue</th><th>Pages Affected</th><th>Avg Score</th></tr></thead>
+                    <tbody>${topIssues.map(([title, data]) => `
+                        <tr>
+                            <td>${title}</td>
+                            <td><span class="badge ${data.count > 50 ? 'bad' : data.count > 20 ? 'avg' : 'good'}">${data.count}</span></td>
+                            <td>${Math.round(data.totalScore / data.count)}%</td>
+                        </tr>
+                    `).join('')}</tbody>
+                </table>
+            </div>
+        `;
+    }
+    renderResources();
+
+    // Keyboard shortcut
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+    </script>
+</body>
+</html>
