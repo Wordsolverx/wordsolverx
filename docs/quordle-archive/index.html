@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quordle Archive - WordSolverX</title>
+    <meta name="description" content="Complete archive of past Quordle answers. Free online tool at WordSolverX.">
+    <meta name="keywords" content="quordle archive, quordle archive tool, word solver, puzzle solver, daily answers">
+    <link rel="canonical" href="https://wordsolverx.com/quordle-archive">
+    <meta property="og:title" content="Quordle Archive - WordSolverX">
+    <meta property="og:description" content="Complete archive of past Quordle answers">
+    <meta property="og:url" content="https://wordsolverx.com/quordle-archive">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Quordle Archive - WordSolverX">
+    <link rel="icon" href="https://wordsolverx.com/favicon.ico">
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --primary-dark: #8B5CF6dd;
+            --primary-light: #8B5CF622;
+            --bg: #ffffff;
+            --bg-alt: #f5f3ff;
+            --text: #1a1a2e;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            padding: 48px 24px;
+            color: white;
+        }
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            opacity: 0.92;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb .sep { margin: 0 6px; }
+
+        /* Main Layout */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 48px;
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 32px;
+        }
+
+        /* Content */
+        .content {
+            min-width: 0;
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 32px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .content h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin: 24px 0 12px;
+        }
+
+        .content p {
+            margin: 0 0 16px;
+            color: #374151;
+        }
+
+        .content ul {
+            margin: 0 0 16px 24px;
+        }
+
+        .content li {
+            margin: 8px 0;
+            color: #374151;
+        }
+
+        .content a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        .content strong {
+            color: var(--text);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 32px;
+        }
+
+        .faq-item {
+            background: var(--bg-alt);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .faq-question {
+            padding: 16px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .faq-answer {
+            padding: 0 20px 16px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            align-self: start;
+        }
+
+        .sidebar-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+
+        .sidebar-link:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .sidebar-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Visit Main Site CTA */
+        .visit-cta {
+            background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            color: white;
+            margin-top: 16px;
+        }
+
+        .visit-cta p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .visit-cta a {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: #94a3b8;
+            padding: 48px 24px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .footer h4 {
+            color: white;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            padding: 3px 0;
+            font-size: 0.85rem;
+        }
+
+        .footer a:hover { color: white; }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 24px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid #334155;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+            }
+            .hero h1 { font-size: 1.6rem; }
+            .hero-icon { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+
+        /* Schema markup hidden */
+        .schema { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="https://wordsolverx.com" class="logo">
+                <div class="logo-icon">🧩</div>
+                WordSolverX
+            </a>
+            <nav class="nav-links">
+                <a href="https://wordsolverx.com/solver">Solvers</a>
+                <a href="https://wordsolverx.com/today">Daily Answers</a>
+                <a href="https://wordsolverx.com/archive">Archives</a>
+                <a href="https://wordsolverx.com/guides">Guides</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="hero-icon">📚</span>
+            <h1>Quordle Archive</h1>
+            <p>Complete archive of past Quordle answers</p>
+            <a href="https://wordsolverx.com/quordle-archive" class="cta-button">📚 Browse Archive</a>
+        </div>
+    </section>
+
+    
+    <nav class="breadcrumb">
+        <a href="https://wordsolverx.com">Home</a>
+        <span class="sep">›</span>
+        <a href="https://wordsolverx.com/archive">Archives</a>
+        <span class="sep">›</span>
+        <span class="current">Quordle Archive</span>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <article class="content">
+            <h1>Quordle Archive - Complete Past Quordle Answers & Solutions</h1>
+
+<h2>Complete Quordle Answer Archive</h2>
+
+<p>Welcome to the most comprehensive Quordle archive online, your definitive resource for all Quordle past answers and solutions. Quordle, the challenging four-word puzzle that multiplies the Wordle experience by requiring players to solve four simultaneous word puzzles, has become the go-to game for players who crave a greater challenge. Our Quordle archive preserves every daily answer set, creating a complete Quordle answer history that allows you to browse, search, and analyze all past solutions at your convenience.</p>
+
+<p>The Quordle archive is meticulously maintained to capture the full complexity of this demanding game. Each daily Quordle puzzle features four separate five-letter words that must be solved within nine guesses, and our Quordle past answers collection documents all four words for every puzzle date. This comprehensive approach to the Quordle answer history makes our archive invaluable for players who want to study the game's word selection patterns across all four quadrants simultaneously.</p>
+
+<p>Whether you missed a day of Quordle or want to analyze months of Quordle past answers for strategic insights, our archive provides everything you need. The complete Quordle answer history is organized chronologically and fully searchable, ensuring you can find any past four-word solution set in seconds. From relatively easy days with common words to brutally difficult puzzles featuring obscure vocabulary, every Quordle answer set is documented in our comprehensive archive.</p>
+
+<h2>The Value of Historical Quordle Data</h2>
+
+<p>A comprehensive Quordle previous answers database offers exceptional value for dedicated players seeking to improve their multi-word solving skills. The Quordle answer list reveals patterns in how the game selects its four words — whether they tend to share common letters, whether difficulty is distributed evenly across quadrants, and which letter combinations appear most frequently across the four-word sets. By studying the Quordle solution history, players can develop more effective initial guessing strategies that maximize information gain across all four puzzles simultaneously.</p>
+
+<p>The Quordle archive also serves as a vital catch-up resource for players who missed a day. Given Quordle's difficulty, many players occasionally fail to solve all four words, and seeing the complete Quordle previous answers helps them understand what they missed and learn from the experience. Our Quordle answer list preserves every four-word set, and the complete Quordle solution history ensures that no solution is ever lost, even for the most challenging puzzles.</p>
+
+<p>Furthermore, the Quordle answer history provides fascinating insights into the relationship between the four words in each daily set. Sometimes the words share thematic or linguistic connections; other times they are completely unrelated. By examining these patterns across the Quordle past answers, players can develop a more nuanced understanding of how the game constructs its puzzles and potentially identify clues that help with particularly stubborn quadrants.</p>
+
+<h2>How to Use This Quordle Archive</h2>
+
+<p>Our Quordle archive search is designed for quick, intuitive navigation. The archive lists Quordle past answers in reverse chronological order, with the most recent four-word solution sets appearing first. You can browse the complete Quordle answer history by scrolling through the entries or use the search and filter tools to find specific answers by date or individual word.</p>
+
+<p>To find past Quordle answers for a particular date, navigate to the corresponding month and locate the date. Each Quordle archive entry includes all four target words, clearly labeled by their quadrant position (top-left, top-right, bottom-left, bottom-right). Our Quordle archive search also supports searching for individual words to see if and when they have appeared as part of a Quordle puzzle, which is useful for tracking whether specific words have been used in the Quordle answer history.</p>
+
+<p>For strategic improvement, we recommend using the Quordle archive to study the relationship between the four words in each daily set. Understanding how Quordle constructs its puzzles — whether the words tend to share letters or are deliberately diverse — can help you develop more efficient guessing strategies. Our Quordle archive search makes it easy to conduct this kind of analysis, supporting both quick lookups and in-depth strategic research.</p>
+
+<h2>Statistical Insights from Quordle Archives</h2>
+
+<p>Statistical analysis of the Quordle archive reveals fascinating patterns in word selection and puzzle construction. Quordle patterns show that the four daily words tend to have diverse letter compositions, meaning effective initial guesses should include a wide range of common letters. These Quordle statistics help players optimize their opening guesses to maximize information across all four quadrants, a critical strategy for success in this demanding game.</p>
+
+<p>Quordle answer trends indicate that at least one of the four daily words is typically more challenging than the others, often featuring less common letters or unusual letter patterns. By tracking these Quordle patterns through our archive data, players can learn to identify which quadrant is likely to be the most difficult and allocate their guesses accordingly. The Quordle statistics compiled in our archive include letter frequency distribution, difficulty variation across quadrants, and common word pairings.</p>
+
+<p>Our analysis of Quordle answer trends also examines overall puzzle difficulty over time, identifying periods when the game was consistently harder or easier. These Quordle statistics provide useful context for players evaluating their own performance, helping them understand whether a low score reflects personal difficulty or a particularly challenging puzzle set in the Quordle archive.</p>
+
+<h2>Quordle Archive Features and Benefits</h2>
+
+<p>Our Quordle archive offers a comprehensive set of features designed for dedicated puzzle players. Each entry includes all four answer words, their quadrant positions, individual difficulty ratings, and the overall puzzle difficulty score. This rich metadata makes our Quordle answer history useful not just for quick lookups but for deep strategic analysis of the game's construction patterns and difficulty trends.</p>
+
+<p>The Quordle archive search functionality supports multiple query types, including date lookup, individual word search, and difficulty filtering. Whether you want to find past Quordle answers from a specific week or identify all puzzles where a particular word appeared, our search tools deliver fast, accurate results. The Quordle archive is fully responsive, providing an excellent experience on any device.</p>
+
+<p>We take pride in maintaining the most complete and accurate Quordle archive available online. Every entry in our Quordle answer history is verified for accuracy, and daily updates ensure that new Quordle past answers are always available promptly. With its comprehensive data, powerful search capabilities, and user-friendly design, our Quordle archive stands as the definitive resource for Quordle players seeking to improve their skills and track their progress.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>How far back does the Quordle archive go?</h3>
+<p>Our Quordle archive includes every Quordle answer from the game's launch, providing a complete Quordle answer history with an unbroken record of all past four-word solution sets. Every Quordle past answer has been verified for accuracy.</p>
+
+<h3>How often is the Quordle archive updated?</h3>
+<p>The Quordle archive is updated daily, with each new set of four Quordle answers added shortly after the puzzle goes live. Our Quordle answer history is always current and complete.</p>
+
+<h3>Can I search for a specific Quordle answer?</h3>
+<p>Yes! Our Quordle archive search allows you to find any past Quordle answer by date or by individual word. Finding past Quordle answers is quick and easy with our comprehensive search tools.</p>
+
+<h3>Is the Quordle archive free?</h3>
+<p>Absolutely! The complete Quordle archive, including all Quordle past answers and search functionality, is entirely free to use. No subscriptions or payments are required to access our Quordle answer history.</p>
+
+<h2>Related Pages</h2>
+
+<ul>
+<li><a href="https://wordsolverx.com/quordle-answer-today">Quordle Answer Today</a> - Today's Quordle solution</li>
+<li><a href="https://wordsolverx.com/quordle-solver">Quordle Solver</a> - Solve Quordle puzzles</li>
+<li><a href="https://wordsolverx.com/wordle-answer-archive">Wordle Archive</a> - Wordle past answers</li>
+</ul>
+
+
+        </article>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">Quick Links</div>
+                
+        <a href="https://wordsolverx.com/quordle-answer-today" class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            <span>Quordle Answer Today</span>
+        </a>
+        <a href="https://wordsolverx.com/quordle-solver" class="sidebar-link">
+            <span class="sidebar-icon">🔧</span>
+            <span>Quordle Solver</span>
+        </a>
+        <a href="https://wordsolverx.com/archive" class="sidebar-link">
+            <span class="sidebar-icon">📚</span>
+            <span>All Archives</span>
+        </a>
+        <a href="https://wordsolverx.com" class="sidebar-link">
+            <span class="sidebar-icon">🏠</span>
+            <span>Home</span>
+        </a>
+            </div>
+
+            <div class="visit-cta">
+                <p>Visit the full interactive tool</p>
+                <a href="https://wordsolverx.com/quordle-archive">Open on WordSolverX →</a>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <h4>Solver Tools</h4>
+                <a href="https://wordsolverx.com/wordle-solver">Wordle Solver</a>
+                <a href="https://wordsolverx.com/quordle-solver">Quordle Solver</a>
+                <a href="https://wordsolverx.com/colordle-solver">Colordle Solver</a>
+                <a href="https://wordsolverx.com/phoodle-solver">Phoodle Solver</a>
+                <a href="https://wordsolverx.com/nerdle-solver">Nerdle Solver</a>
+            </div>
+            <div>
+                <h4>Daily Answers</h4>
+                <a href="https://wordsolverx.com/wordle-answer-today">Wordle Today</a>
+                <a href="https://wordsolverx.com/quordle-answer-today">Quordle Today</a>
+                <a href="https://wordsolverx.com/colordle-answer-today">Colordle Today</a>
+                <a href="https://wordsolverx.com/phoodle-answer-today">Phoodle Today</a>
+            </div>
+            <div>
+                <h4>Archives</h4>
+                <a href="https://wordsolverx.com/wordle-answer-archive">Wordle Archive</a>
+                <a href="https://wordsolverx.com/quordle-archive">Quordle Archive</a>
+                <a href="https://wordsolverx.com/archive">All Archives</a>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <a href="https://wordsolverx.com/about">About</a>
+                <a href="https://wordsolverx.com/contact">Contact</a>
+                <a href="https://wordsolverx.com/privacy-policy">Privacy</a>
+                <a href="https://wordsolverx.com/terms-of-service">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 WordSolverX. All rights reserved. | <a href="https://wordsolverx.com">wordsolverx.com</a>
+        </div>
+    </footer>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Quordle Archive",
+        "description": "Complete archive of past Quordle answers",
+        "url": "https://wordsolverx.com/quordle-archive",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "WordSolverX",
+            "url": "https://wordsolverx.com"
+        }
+    }
+    </script>
+</body>
+</html>

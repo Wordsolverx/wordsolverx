@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WordSolverX - Free Puzzle Solver Tools & Daily Answers</title>
+    <meta name="description" content="Free online puzzle solvers and daily answers for Wordle, Quordle, Colordle, Phoodle, Nerdle, and 50+ more games.">
+    <link rel="canonical" href="https://wordsolverx.com">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: #1a1a2e;
+            background: #f8fafc;
+        }
+
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 24px;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #1a1a2e;
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .logo-icon {
+            width: 36px; height: 36px;
+            background: #6AAA64;
+            border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            color: white; font-size: 1.1rem;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #6AAA64 0%, #3B82F6 50%, #8B5CF6 100%);
+            padding: 72px 24px;
+            text-align: center;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 16px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            opacity: 0.92;
+            max-width: 600px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            margin-top: 32px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-num {
+            font-size: 2rem;
+            font-weight: 900;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section {
+            padding: 48px 0;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .section-icon {
+            width: 40px; height: 40px;
+            border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .section-subtitle {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .game-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 16px;
+        }
+
+        .game-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .game-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: var(--card-color);
+        }
+
+        .game-icon {
+            font-size: 2rem;
+        }
+
+        .game-name {
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        .game-desc {
+            font-size: 0.8rem;
+            color: #64748b;
+            line-height: 1.4;
+        }
+
+        .footer {
+            background: #1a1a2e;
+            color: #94a3b8;
+            padding: 32px 24px;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: #94a3b8;
+            text-decoration: none;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2rem; }
+            .hero-stats { gap: 24px; }
+            .stat-num { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-inner">
+            <a href="https://wordsolverx.com" class="logo">
+                <div class="logo-icon">🧩</div>
+                WordSolverX
+            </a>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>🧩 WordSolverX</h1>
+            <p>Free puzzle solver tools and daily answers for 50+ games. Updated every day at midnight.</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-num">48</div>
+                    <div class="stat-label">Solver Tools</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">25</div>
+                    <div class="stat-label">Daily Answers</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">18</div>
+                    <div class="stat-label">Archives</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-num">10</div>
+                    <div class="stat-label">Wordle Variants</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container">
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background: #f0fdf4">🔧</div>
+                <div>
+                    <div class="section-title">Solver Tools</div>
+                    <div class="section-subtitle">Advanced puzzle-solving tools for every game</div>
+                </div>
+            </div>
+            <div class="game-grid">
+                
+        <a href="./10-letter-wordle-solver/index.html" class="game-card" style="--card-color: #F97316">
+            <div class="game-icon">🔢</div>
+            <div class="game-name">10-Letter Wordle Solver</div>
+            <div class="game-desc">Solver for 10-letter Wordle puzzles</div>
+        </a>
+        <a href="./11-letter-wordle-solver/index.html" class="game-card" style="--card-color: #14B8A6">
+            <div class="game-icon">🔢</div>
+            <div class="game-name">11-Letter Wordle Solver</div>
+            <div class="game-desc">Solver for 11-letter Wordle puzzles</div>
+        </a>
+        <a href="./3-letter-wordle-solver/index.html" class="game-card" style="--card-color: #F59E0B">
+            <div class="game-icon">3️⃣</div>
+            <div class="game-name">3-Letter Wordle Solver</div>
+            <div class="game-desc">Solver for 3-letter Wordle puzzles</div>
+        </a>
+        <a href="./4-letter-wordle-solver/index.html" class="game-card" style="--card-color: #10B981">
+            <div class="game-icon">4️⃣</div>
+            <div class="game-name">4-Letter Wordle Solver</div>
+            <div class="game-desc">Solver for 4-letter Wordle puzzles</div>
+        </a>
+        <a href="./5-letter-wordle-solver/index.html" class="game-card" style="--card-color: #6AAA64">
+            <div class="game-icon">5️⃣</div>
+            <div class="game-name">5-Letter Wordle Solver</div>
+            <div class="game-desc">Solver for 5-letter Wordle puzzles</div>
+        </a>
+        <a href="./6-letter-wordle-solver/index.html" class="game-card" style="--card-color: #3B82F6">
+            <div class="game-icon">6️⃣</div>
+            <div class="game-name">6-Letter Wordle Solver</div>
+            <div class="game-desc">Solver for 6-letter Wordle puzzles</div>
+        </a>
+        <a href="./7-letter-wordle-solver/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">7️⃣</div>
+            <div class="game-name">7-Letter Wordle Solver</div>
+            <div class="game-desc">Solver for 7-letter Wordle puzzles</div>
+        </a>
+        <a href="./8-letter-wordle-solver/index.html" class="game-card" style="--card-color: #EC4899">
+            <div class="game-icon">8️⃣</div>
+            <div class="game-name">8-Letter Wordle Solver</div>
+            <div class="game-desc">Solver for 8-letter Wordle puzzles</div>
+        </a>
+        <a href="./9-letter-wordle-solver/index.html" class="game-card" style="--card-color: #EF4444">
+            <div class="game-icon">9️⃣</div>
+            <div class="game-name">9-Letter Wordle Solver</div>
+            <div class="game-desc">Solver for 9-letter Wordle puzzles</div>
+        </a>
+        <a href="./betweenle-solver/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">🔤</div>
+            <div class="game-name">Betweenle Solver</div>
+            <div class="game-desc">Find the word between two words alphabetically</div>
+        </a>
+        <a href="./boggle-solver/index.html" class="game-card" style="--card-color: #059669">
+            <div class="game-icon">🎲</div>
+            <div class="game-name">Boggle Solver</div>
+            <div class="game-desc">Boggle grid word finder</div>
+        </a>
+        <a href="./canuckle-solver/index.html" class="game-card" style="--card-color: #DC2626">
+            <div class="game-icon">🍁</div>
+            <div class="game-name">Canuckle Solver</div>
+            <div class="game-desc">Canadian Wordle puzzle solver</div>
+        </a>
+        <a href="./colordle-solver/index.html" class="game-card" style="--card-color: #F59E0B">
+            <div class="game-icon">🎨</div>
+            <div class="game-name">Colordle Solver</div>
+            <div class="game-desc">Solve daily color puzzles with ease</div>
+        </a>
+        <a href="./colorfle-solver/index.html" class="game-card" style="--card-color: #F472B6">
+            <div class="game-icon">🌈</div>
+            <div class="game-name">Colorfle Solver</div>
+            <div class="game-desc">Color puzzle game solver</div>
+        </a>
+        <a href="./countryle-solver/index.html" class="game-card" style="--card-color: #16A34A">
+            <div class="game-icon">🗺️</div>
+            <div class="game-name">Countryle Solver</div>
+            <div class="game-desc">Country guessing game solver</div>
+        </a>
+        <a href="./dordle-solver/index.html" class="game-card" style="--card-color: #2563EB">
+            <div class="game-icon">✌️</div>
+            <div class="game-name">Dordle Solver</div>
+            <div class="game-desc">Double Wordle solver</div>
+        </a>
+        <a href="./dotadle-solver/index.html" class="game-card" style="--card-color: #EF4444">
+            <div class="game-icon">🛡️</div>
+            <div class="game-name">Dotadle Solver</div>
+            <div class="game-desc">Dota 2 hero guessing solver</div>
+        </a>
+        <a href="./fibble-solver/index.html" class="game-card" style="--card-color: #F97316">
+            <div class="game-icon">🤥</div>
+            <div class="game-name">Fibble Solver</div>
+            <div class="game-desc">Deceptive Wordle variant solver</div>
+        </a>
+        <a href="./hangman-solver/index.html" class="game-card" style="--card-color: #78716C">
+            <div class="game-icon">🎪</div>
+            <div class="game-name">Hangman Solver</div>
+            <div class="game-desc">Classic hangman word solver</div>
+        </a>
+        <a href="./hardle-solver/index.html" class="game-card" style="--card-color: #991B1B">
+            <div class="game-icon">💪</div>
+            <div class="game-name">Hardle Solver</div>
+            <div class="game-desc">Hard mode Wordle solver</div>
+        </a>
+        <a href="./kanoodle-solver/index.html" class="game-card" style="--card-color: #9333EA">
+            <div class="game-icon">🧩</div>
+            <div class="game-name">Kanoodle Solver</div>
+            <div class="game-desc">Kanoodle puzzle piece solver</div>
+        </a>
+        <a href="./light-out-solver/index.html" class="game-card" style="--card-color: #FBBF24">
+            <div class="game-icon">💡</div>
+            <div class="game-name">Light Out Solver</div>
+            <div class="game-desc">Lights out toggle puzzle solver</div>
+        </a>
+        <a href="./loldle-solver/index.html" class="game-card" style="--card-color: #C084FC">
+            <div class="game-icon">⚔️</div>
+            <div class="game-name">LoLdle Solver</div>
+            <div class="game-desc">League of Legends champion guessing solver</div>
+        </a>
+        <a href="./minesweeper-solver/index.html" class="game-card" style="--card-color: #64748B">
+            <div class="game-icon">💣</div>
+            <div class="game-name">Minesweeper Solver</div>
+            <div class="game-desc">Minesweeper safe move finder</div>
+        </a>
+        <a href="./narutodle-solver/index.html" class="game-card" style="--card-color: #FF6B35">
+            <div class="game-icon">🍥</div>
+            <div class="game-name">Narutodle Solver</div>
+            <div class="game-desc">Naruto character guessing solver</div>
+        </a>
+        <a href="./nerdle-solver/index.html" class="game-card" style="--card-color: #3B82F6">
+            <div class="game-icon">🔢</div>
+            <div class="game-name">Nerdle Solver</div>
+            <div class="game-desc">Math equation guessing game solver</div>
+        </a>
+        <a href="./octordle-solver/index.html" class="game-card" style="--card-color: #7C3AED">
+            <div class="game-icon">🐙</div>
+            <div class="game-name">Octordle Solver</div>
+            <div class="game-desc">8 Wordle puzzles solver</div>
+        </a>
+        <a href="./onepiecedle-solver/index.html" class="game-card" style="--card-color: #DC2626">
+            <div class="game-icon">☠️</div>
+            <div class="game-name">Onepiecedle Solver</div>
+            <div class="game-desc">One Piece character guessing solver</div>
+        </a>
+        <a href="./phoodle-solver/index.html" class="game-card" style="--card-color: #EC4899">
+            <div class="game-icon">🍽️</div>
+            <div class="game-name">Phoodle Solver</div>
+            <div class="game-desc">Food-themed Wordle puzzle helper</div>
+        </a>
+        <a href="./pokedle-solver/index.html" class="game-card" style="--card-color: #FACC15">
+            <div class="game-icon">⚡</div>
+            <div class="game-name">Pokedle Solver</div>
+            <div class="game-desc">Pokemon character guessing solver</div>
+        </a>
+        <a href="./quordle-solver/index.html" class="game-card" style="--card-color: #E85D4A">
+            <div class="game-icon">🎯</div>
+            <div class="game-name">Quordle Solver</div>
+            <div class="game-desc">Master all 4 Wordle puzzles simultaneously</div>
+        </a>
+        <a href="./searchle-solver/index.html" class="game-card" style="--card-color: #4F46E5">
+            <div class="game-icon">🔍</div>
+            <div class="game-name">Searchle Solver</div>
+            <div class="game-desc">Search trend guessing solver</div>
+        </a>
+        <a href="./smashdle-solver/index.html" class="game-card" style="--card-color: #7C3AED">
+            <div class="game-icon">💥</div>
+            <div class="game-name">Smashdle Solver</div>
+            <div class="game-desc">Super Smash Bros character solver</div>
+        </a>
+        <a href="./soundmap-solver/index.html" class="game-card" style="--card-color: #06B6D4">
+            <div class="game-icon">🗺️</div>
+            <div class="game-name">Soundmap Solver</div>
+            <div class="game-desc">Music artist guessing solver</div>
+        </a>
+        <a href="./spotle-solver/index.html" class="game-card" style="--card-color: #1DB954">
+            <div class="game-icon">🎵</div>
+            <div class="game-name">Spotle Solver</div>
+            <div class="game-desc">Spotify music guessing solver</div>
+        </a>
+        <a href="./spotle-wordle-solver/index.html" class="game-card" style="--card-color: #1DB954">
+            <div class="game-icon">🎶</div>
+            <div class="game-name">Spotle Wordle Solver</div>
+            <div class="game-desc">Spotify Wordle crossover solver</div>
+        </a>
+        <a href="./squaredle-solver/index.html" class="game-card" style="--card-color: #6366F1">
+            <div class="game-icon">⬛</div>
+            <div class="game-name">Squaredle Solver</div>
+            <div class="game-desc">Board word path solver</div>
+        </a>
+        <a href="./thirdle-solver/index.html" class="game-card" style="--card-color: #0891B2">
+            <div class="game-icon">3️⃣</div>
+            <div class="game-name">Thirdle Solver</div>
+            <div class="game-desc">3-letter Wordle solver</div>
+        </a>
+        <a href="./w-peaks-solver/index.html" class="game-card" style="--card-color: #475569">
+            <div class="game-icon">⛰️</div>
+            <div class="game-name">W Peaks Solver</div>
+            <div class="game-desc">Word Peaks alphabetical solver</div>
+        </a>
+        <a href="./waffle-solver/index.html" class="game-card" style="--card-color: #D97706">
+            <div class="game-icon">🧇</div>
+            <div class="game-name">Waffle Solver</div>
+            <div class="game-desc">Solve word grid rearrangement puzzles</div>
+        </a>
+        <a href="./warmle-solver/index.html" class="game-card" style="--card-color: #EF4444">
+            <div class="game-icon">🌡️</div>
+            <div class="game-name">Warmle Solver</div>
+            <div class="game-desc">Warm/cold Wordle solver</div>
+        </a>
+        <a href="./weaver-solver/index.html" class="game-card" style="--card-color: #A855F7">
+            <div class="game-icon">🧶</div>
+            <div class="game-name">Weaver Solver</div>
+            <div class="game-desc">Word ladder transformation solver</div>
+        </a>
+        <a href="./woodle-solver/index.html" class="game-card" style="--card-color: #92400E">
+            <div class="game-icon">🪵</div>
+            <div class="game-name">Woodle Solver</div>
+            <div class="game-desc">Wooden-themed Wordle solver</div>
+        </a>
+        <a href="./word-ladder-solver/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">🪜</div>
+            <div class="game-name">Word Ladder Solver</div>
+            <div class="game-desc">Word ladder puzzle solver</div>
+        </a>
+        <a href="./wordle-analyzer/index.html" class="game-card" style="--card-color: #6366F1">
+            <div class="game-icon">📊</div>
+            <div class="game-name">Wordle Analyzer</div>
+            <div class="game-desc">Analyze and improve your Wordle strategy</div>
+        </a>
+        <a href="./wordle-solver/index.html" class="game-card" style="--card-color: #6AAA64">
+            <div class="game-icon">📝</div>
+            <div class="game-name">Wordle Solver</div>
+            <div class="game-desc">Solve any Wordle puzzle instantly with our advanced algorithm</div>
+        </a>
+        <a href="./worldle-solver/index.html" class="game-card" style="--card-color: #10B981">
+            <div class="game-icon">🌍</div>
+            <div class="game-name">Worldle Solver</div>
+            <div class="game-desc">Country outline guessing solver</div>
+        </a>
+        <a href="./xordle-solver/index.html" class="game-card" style="--card-color: #BE185D">
+            <div class="game-icon">❎</div>
+            <div class="game-name">Xordle Solver</div>
+            <div class="game-desc">Dual word Wordle solver</div>
+        </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background: #eff6ff">📅</div>
+                <div>
+                    <div class="section-title">Daily Answers</div>
+                    <div class="section-subtitle">Today's answers updated at midnight</div>
+                </div>
+            </div>
+            <div class="game-grid">
+                
+        <a href="./wordle-answer-today/index.html" class="game-card" style="--card-color: #6AAA64">
+            <div class="game-icon">📝</div>
+            <div class="game-name">Wordle Answer Today</div>
+            <div class="game-desc">Today's Wordle solution & hints</div>
+        </a>
+        <a href="./quordle-answer-today/index.html" class="game-card" style="--card-color: #E85D4A">
+            <div class="game-icon">🎯</div>
+            <div class="game-name">Quordle Answer Today</div>
+            <div class="game-desc">Today's Quordle solution & hints</div>
+        </a>
+        <a href="./colordle-answer-today/index.html" class="game-card" style="--card-color: #F59E0B">
+            <div class="game-icon">🎨</div>
+            <div class="game-name">Colordle Answer Today</div>
+            <div class="game-desc">Today's Colordle solution & hints</div>
+        </a>
+        <a href="./colorfle-answer-today/index.html" class="game-card" style="--card-color: #F472B6">
+            <div class="game-icon">🌈</div>
+            <div class="game-name">Colorfle Answer Today</div>
+            <div class="game-desc">Today's Colorfle solution & hints</div>
+        </a>
+        <a href="./contexto-answer-today/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">🧠</div>
+            <div class="game-name">Contexto Answer Today</div>
+            <div class="game-desc">Today's Contexto solution & hints</div>
+        </a>
+        <a href="./semantle-answer-today/index.html" class="game-card" style="--card-color: #6366F1">
+            <div class="game-icon">💭</div>
+            <div class="game-name">Semantle Answer Today</div>
+            <div class="game-desc">Today's Semantle solution & hints</div>
+        </a>
+        <a href="./nerdle-answer-today/index.html" class="game-card" style="--card-color: #3B82F6">
+            <div class="game-icon">🔢</div>
+            <div class="game-name">Nerdle Answer Today</div>
+            <div class="game-desc">Today's Nerdle solution & hints</div>
+        </a>
+        <a href="./phoodle-answer-today/index.html" class="game-card" style="--card-color: #EC4899">
+            <div class="game-icon">🍽️</div>
+            <div class="game-name">Phoodle Answer Today</div>
+            <div class="game-desc">Today's Phoodle solution & hints</div>
+        </a>
+        <a href="./phrazle-answer-today/index.html" class="game-card" style="--card-color: #14B8A6">
+            <div class="game-icon">💬</div>
+            <div class="game-name">Phrazle Answer Today</div>
+            <div class="game-desc">Today's Phrazle solution & hints</div>
+        </a>
+        <a href="./waffle-answer-today/index.html" class="game-card" style="--card-color: #D97706">
+            <div class="game-icon">🧇</div>
+            <div class="game-name">Waffle Answer Today</div>
+            <div class="game-desc">Today's Waffle solution & hints</div>
+        </a>
+        <a href="./worldle-answer-today/index.html" class="game-card" style="--card-color: #10B981">
+            <div class="game-icon">🌍</div>
+            <div class="game-name">Worldle Answer Today</div>
+            <div class="game-desc">Today's Worldle solution & hints</div>
+        </a>
+        <a href="./globle-answer-today/index.html" class="game-card" style="--card-color: #059669">
+            <div class="game-icon">🌎</div>
+            <div class="game-name">Globle Answer Today</div>
+            <div class="game-desc">Today's Globle solution & hints</div>
+        </a>
+        <a href="./searchle-answer-today/index.html" class="game-card" style="--card-color: #4F46E5">
+            <div class="game-icon">🔍</div>
+            <div class="game-name">Searchle Answer Today</div>
+            <div class="game-desc">Today's Searchle solution & hints</div>
+        </a>
+        <a href="./spotle-answer-today/index.html" class="game-card" style="--card-color: #1DB954">
+            <div class="game-icon">🎵</div>
+            <div class="game-name">Spotle Answer Today</div>
+            <div class="game-desc">Today's Spotle solution & hints</div>
+        </a>
+        <a href="./loldle-answer-today/index.html" class="game-card" style="--card-color: #C084FC">
+            <div class="game-icon">⚔️</div>
+            <div class="game-name">Loldle Answer Today</div>
+            <div class="game-desc">Today's Loldle solution & hints</div>
+        </a>
+        <a href="./narutodle-answer-today/index.html" class="game-card" style="--card-color: #FF6B35">
+            <div class="game-icon">🍥</div>
+            <div class="game-name">Narutodle Answer Today</div>
+            <div class="game-desc">Today's Narutodle solution & hints</div>
+        </a>
+        <a href="./onepiecedle-answer-today/index.html" class="game-card" style="--card-color: #DC2626">
+            <div class="game-icon">☠️</div>
+            <div class="game-name">Onepiecedle Answer Today</div>
+            <div class="game-desc">Today's Onepiecedle solution & hints</div>
+        </a>
+        <a href="./pokedle-answer-today/index.html" class="game-card" style="--card-color: #FACC15">
+            <div class="game-icon">⚡</div>
+            <div class="game-name">Pokedle Answer Today</div>
+            <div class="game-desc">Today's Pokedle solution & hints</div>
+        </a>
+        <a href="./dotadle-answer-today/index.html" class="game-card" style="--card-color: #EF4444">
+            <div class="game-icon">🛡️</div>
+            <div class="game-name">Dotadle Answer Today</div>
+            <div class="game-desc">Today's Dotadle solution & hints</div>
+        </a>
+        <a href="./smashdle-answer-today/index.html" class="game-card" style="--card-color: #7C3AED">
+            <div class="game-icon">💥</div>
+            <div class="game-name">Smashdle Answer Today</div>
+            <div class="game-desc">Today's Smashdle solution & hints</div>
+        </a>
+        <a href="./betweenle-answer-today/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">🔤</div>
+            <div class="game-name">Betweenle Answer Today</div>
+            <div class="game-desc">Today's Betweenle solution & hints</div>
+        </a>
+        <a href="./canuckle-answer-today/index.html" class="game-card" style="--card-color: #DC2626">
+            <div class="game-icon">🍁</div>
+            <div class="game-name">Canuckle Answer Today</div>
+            <div class="game-desc">Today's Canuckle solution & hints</div>
+        </a>
+        <a href="./countryle-answer-today/index.html" class="game-card" style="--card-color: #16A34A">
+            <div class="game-icon">🗺️</div>
+            <div class="game-name">Countryle Answer Today</div>
+            <div class="game-desc">Today's Countryle solution & hints</div>
+        </a>
+        <a href="./framed-answer-today/index.html" class="game-card" style="--card-color: #9333EA">
+            <div class="game-icon">🎬</div>
+            <div class="game-name">Framed Answer Today</div>
+            <div class="game-desc">Today's Framed solution & hints</div>
+        </a>
+        <a href="./worgle-answer-today/index.html" class="game-card" style="--card-color: #64748B">
+            <div class="game-icon">🔤</div>
+            <div class="game-name">Worgle Answer Today</div>
+            <div class="game-desc">Today's Worgle solution & hints</div>
+        </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background: #f5f3ff">📚</div>
+                <div>
+                    <div class="section-title">Answer Archives</div>
+                    <div class="section-subtitle">Complete historical records of past solutions</div>
+                </div>
+            </div>
+            <div class="game-grid">
+                
+        <a href="./wordle-answer-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Wordle Archive</div>
+            <div class="game-desc">All past Wordle answers</div>
+        </a>
+        <a href="./quordle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Quordle Archive</div>
+            <div class="game-desc">All past Quordle answers</div>
+        </a>
+        <a href="./colordle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Colordle Archive</div>
+            <div class="game-desc">All past Colordle answers</div>
+        </a>
+        <a href="./colorfle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Colorfle Archive</div>
+            <div class="game-desc">All past Colorfle answers</div>
+        </a>
+        <a href="./contexto-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Contexto Archive</div>
+            <div class="game-desc">All past Contexto answers</div>
+        </a>
+        <a href="./semantle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Semantle Archive</div>
+            <div class="game-desc">All past Semantle answers</div>
+        </a>
+        <a href="./nerdle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Nerdle Archive</div>
+            <div class="game-desc">All past Nerdle answers</div>
+        </a>
+        <a href="./phoodle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Phoodle Archive</div>
+            <div class="game-desc">All past Phoodle answers</div>
+        </a>
+        <a href="./phrazle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Phrazle Archive</div>
+            <div class="game-desc">All past Phrazle answers</div>
+        </a>
+        <a href="./waffle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Waffle Archive</div>
+            <div class="game-desc">All past Waffle answers</div>
+        </a>
+        <a href="./worldle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Worldle Archive</div>
+            <div class="game-desc">All past Worldle answers</div>
+        </a>
+        <a href="./globle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Globle Archive</div>
+            <div class="game-desc">All past Globle answers</div>
+        </a>
+        <a href="./searchle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Searchle Archive</div>
+            <div class="game-desc">All past Searchle answers</div>
+        </a>
+        <a href="./spotle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Spotle Archive</div>
+            <div class="game-desc">All past Spotle answers</div>
+        </a>
+        <a href="./canuckle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Canuckle Archive</div>
+            <div class="game-desc">All past Canuckle answers</div>
+        </a>
+        <a href="./countryle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Countryle Archive</div>
+            <div class="game-desc">All past Countryle answers</div>
+        </a>
+        <a href="./framed-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Framed Archive</div>
+            <div class="game-desc">All past Framed answers</div>
+        </a>
+        <a href="./worgle-archive/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">📚</div>
+            <div class="game-name">Worgle Archive</div>
+            <div class="game-desc">All past Worgle answers</div>
+        </a>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-header">
+                <div class="section-icon" style="background: #fffbeb">📝</div>
+                <div>
+                    <div class="section-title">Wordle Variants</div>
+                    <div class="section-subtitle">3-letter to 12-letter puzzles</div>
+                </div>
+            </div>
+            <div class="game-grid">
+                
+        <a href="./3-letter-wordle/index.html" class="game-card" style="--card-color: #F59E0B">
+            <div class="game-icon">3️⃣</div>
+            <div class="game-name">3-Letter Wordle</div>
+            <div class="game-desc">Play & solve 3-letter puzzles</div>
+        </a>
+        <a href="./4-letter-wordle/index.html" class="game-card" style="--card-color: #10B981">
+            <div class="game-icon">4️⃣</div>
+            <div class="game-name">4-Letter Wordle</div>
+            <div class="game-desc">Play & solve 4-letter puzzles</div>
+        </a>
+        <a href="./5-letter-wordle/index.html" class="game-card" style="--card-color: #6AAA64">
+            <div class="game-icon">5️⃣</div>
+            <div class="game-name">5-Letter Wordle</div>
+            <div class="game-desc">Play & solve 5-letter puzzles</div>
+        </a>
+        <a href="./6-letter-wordle/index.html" class="game-card" style="--card-color: #3B82F6">
+            <div class="game-icon">6️⃣</div>
+            <div class="game-name">6-Letter Wordle</div>
+            <div class="game-desc">Play & solve 6-letter puzzles</div>
+        </a>
+        <a href="./7-letter-wordle/index.html" class="game-card" style="--card-color: #8B5CF6">
+            <div class="game-icon">7️⃣</div>
+            <div class="game-name">7-Letter Wordle</div>
+            <div class="game-desc">Play & solve 7-letter puzzles</div>
+        </a>
+        <a href="./8-letter-wordle/index.html" class="game-card" style="--card-color: #EC4899">
+            <div class="game-icon">8️⃣</div>
+            <div class="game-name">8-Letter Wordle</div>
+            <div class="game-desc">Play & solve 8-letter puzzles</div>
+        </a>
+        <a href="./9-letter-wordle/index.html" class="game-card" style="--card-color: #EF4444">
+            <div class="game-icon">9️⃣</div>
+            <div class="game-name">9-Letter Wordle</div>
+            <div class="game-desc">Play & solve 9-letter puzzles</div>
+        </a>
+        <a href="./10-letter-wordle/index.html" class="game-card" style="--card-color: #F97316">
+            <div class="game-icon">10️⃣</div>
+            <div class="game-name">10-Letter Wordle</div>
+            <div class="game-desc">Play & solve 10-letter puzzles</div>
+        </a>
+        <a href="./11-letter-wordle/index.html" class="game-card" style="--card-color: #14B8A6">
+            <div class="game-icon">11️⃣</div>
+            <div class="game-name">11-Letter Wordle</div>
+            <div class="game-desc">Play & solve 11-letter puzzles</div>
+        </a>
+        <a href="./12-letter-wordle/index.html" class="game-card" style="--card-color: #6366F1">
+            <div class="game-icon">12️⃣</div>
+            <div class="game-name">12-Letter Wordle</div>
+            <div class="game-desc">Play & solve 12-letter puzzles</div>
+        </a>
+            </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        &copy; 2026 WordSolverX. All rights reserved. | <a href="https://wordsolverx.com">wordsolverx.com</a>
+    </footer>
+</body>
+</html>

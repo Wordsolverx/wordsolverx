@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phrazle Archive - WordSolverX</title>
+    <meta name="description" content="Complete archive of past Phrazle answers. Free online tool at WordSolverX.">
+    <meta name="keywords" content="phrazle archive, phrazle archive tool, word solver, puzzle solver, daily answers">
+    <link rel="canonical" href="https://wordsolverx.com/phrazle-archive">
+    <meta property="og:title" content="Phrazle Archive - WordSolverX">
+    <meta property="og:description" content="Complete archive of past Phrazle answers">
+    <meta property="og:url" content="https://wordsolverx.com/phrazle-archive">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Phrazle Archive - WordSolverX">
+    <link rel="icon" href="https://wordsolverx.com/favicon.ico">
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --primary-dark: #8B5CF6dd;
+            --primary-light: #8B5CF622;
+            --bg: #ffffff;
+            --bg-alt: #f5f3ff;
+            --text: #1a1a2e;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            padding: 48px 24px;
+            color: white;
+        }
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            opacity: 0.92;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb .sep { margin: 0 6px; }
+
+        /* Main Layout */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 48px;
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 32px;
+        }
+
+        /* Content */
+        .content {
+            min-width: 0;
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 32px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .content h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin: 24px 0 12px;
+        }
+
+        .content p {
+            margin: 0 0 16px;
+            color: #374151;
+        }
+
+        .content ul {
+            margin: 0 0 16px 24px;
+        }
+
+        .content li {
+            margin: 8px 0;
+            color: #374151;
+        }
+
+        .content a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        .content strong {
+            color: var(--text);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 32px;
+        }
+
+        .faq-item {
+            background: var(--bg-alt);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .faq-question {
+            padding: 16px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .faq-answer {
+            padding: 0 20px 16px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            align-self: start;
+        }
+
+        .sidebar-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+
+        .sidebar-link:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .sidebar-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Visit Main Site CTA */
+        .visit-cta {
+            background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            color: white;
+            margin-top: 16px;
+        }
+
+        .visit-cta p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .visit-cta a {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: #94a3b8;
+            padding: 48px 24px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .footer h4 {
+            color: white;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            padding: 3px 0;
+            font-size: 0.85rem;
+        }
+
+        .footer a:hover { color: white; }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 24px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid #334155;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+            }
+            .hero h1 { font-size: 1.6rem; }
+            .hero-icon { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+
+        /* Schema markup hidden */
+        .schema { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="https://wordsolverx.com" class="logo">
+                <div class="logo-icon">🧩</div>
+                WordSolverX
+            </a>
+            <nav class="nav-links">
+                <a href="https://wordsolverx.com/solver">Solvers</a>
+                <a href="https://wordsolverx.com/today">Daily Answers</a>
+                <a href="https://wordsolverx.com/archive">Archives</a>
+                <a href="https://wordsolverx.com/guides">Guides</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="hero-icon">📚</span>
+            <h1>Phrazle Archive</h1>
+            <p>Complete archive of past Phrazle answers</p>
+            <a href="https://wordsolverx.com/phrazle-archive" class="cta-button">📚 Browse Archive</a>
+        </div>
+    </section>
+
+    
+    <nav class="breadcrumb">
+        <a href="https://wordsolverx.com">Home</a>
+        <span class="sep">›</span>
+        <a href="https://wordsolverx.com/archive">Archives</a>
+        <span class="sep">›</span>
+        <span class="current">Phrazle Archive</span>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <article class="content">
+            <h1>Phrazle Archive - Complete Past Phrazle Answers & Solutions</h1>
+
+<h2>Complete Phrazle Phrase Archive</h2>
+
+<p>Welcome to the definitive Phrazle archive, your comprehensive resource for all Phrazle past answers and solutions. Phrazle, the engaging phrase guessing game that challenges players to identify well-known phrases, idioms, and expressions letter by letter, has become a daily favorite for language lovers and puzzle enthusiasts. Our Phrazle archive preserves every daily answer, creating a thorough Phrazle phrase archive with a complete Phrazle answer history that you can browse, search, and reference whenever you need.</p>
+
+<p>The Phrazle archive is meticulously maintained to capture the full richness of this unique word game. Unlike standard five-letter word games, Phrazle challenges players with multi-word phrases that span a wide range of idioms, sayings, and common expressions. Every entry in our Phrazle past answers collection includes the target phrase, the date it appeared, and its category — whether it is an idiom, a common saying, a proverb, or a popular expression. This comprehensive approach to the Phrazle phrase archive makes it both a gameplay reference and a linguistic resource.</p>
+
+<p>Whether you missed a day of Phrazle or want to study the complete Phrazle answer history for patterns in phrase selection, our archive provides everything you need. The full collection of Phrazle past answers is organized chronologically and fully searchable, ensuring you can find any past phrase solution in seconds. From short two-word expressions to longer idiomatic phrases, every Phrazle answer ever published is documented in our comprehensive phrase archive.</p>
+
+<h2>The Value of Historical Phrazle Data</h2>
+
+<p>A comprehensive Phrazle previous answers database offers exceptional value for language enthusiasts and competitive players. The Phrazle answer list reveals which categories of phrases appear most frequently — whether idioms dominate over proverbs, or whether common sayings are more prevalent than cultural expressions. By studying the Phrazle solution history, players can develop a stronger intuitive sense of which types of phrases the game favors, improving their ability to make educated guesses based on partial letter reveals.</p>
+
+<p>The Phrazle archive also serves as an indispensable catch-up tool for players who missed a day. Because Phrazle phrases can be particularly challenging to identify — especially when they involve unfamiliar idioms or less common expressions — having access to Phrazle previous answers helps players learn from the experience and expand their phrase vocabulary. The complete Phrazle answer list ensures no solution is ever lost, and the full Phrazle solution history remains accessible as a learning and reference tool.</p>
+
+<p>Beyond its gameplay applications, the Phrazle phrase archive functions as a curated collection of English expressions and idioms. By browsing through the Phrazle past answers, you will encounter phrases you may have forgotten or never known, enriching your understanding of the English language's rich idiomatic tradition. The Phrazle answer history transforms daily gameplay into a linguistic education that accumulates over time, making it valuable even for those who are not primarily interested in the competitive aspect of the game.</p>
+
+<h2>How to Use This Phrazle Archive</h2>
+
+<p>Our Phrazle archive search is designed for ease of use and efficiency. The archive displays Phrazle past answers in reverse chronological order, with the most recent phrase solutions appearing first. You can browse the complete Phrazle answer history by scrolling through the entries or use the search and filter tools to find specific answers by date, phrase, or category.</p>
+
+<p>To find past Phrazle answers for a particular date, navigate to the corresponding month and locate the date. Each Phrazle archive entry includes the target phrase, its category, and the date it appeared. Our Phrazle archive search also supports filtering by phrase category — such as idioms, proverbs, common sayings, or cultural expressions — making it easy to study patterns within specific linguistic categories of the Phrazle phrase archive.</p>
+
+<p>For strategic improvement, we recommend reviewing recent entries in the Phrazle answer history to identify trends in phrase selection. You can also use the Phrazle archive search to check whether a specific phrase has already appeared, which can help you eliminate possibilities during gameplay. Our archive supports both quick lookups and in-depth strategic analysis, making it a versatile tool for players of all skill levels.</p>
+
+<h2>Statistical Insights from Phrazle Archives</h2>
+
+<p>Statistical analysis of the Phrazle archive reveals fascinating patterns in phrase selection and category distribution. Phrazle patterns show that common idioms and everyday expressions appear most frequently, while more obscure proverbs and literary quotations are used more sparingly. These Phrazle statistics can guide your guessing strategy, especially when you have identified some letters but are uncertain about the complete phrase.</p>
+
+<p>Phrazle answer trends also indicate that phrases with distinctive letter patterns — unusual consonant combinations or recognizable word lengths — tend to be solved more quickly than those with more generic structures. By studying these Phrazle patterns through our archive data, players can develop better techniques for working with partial information. The Phrazle statistics compiled in our archive include category distribution, phrase length frequency, and difficulty ratings based on community performance.</p>
+
+<p>Our analysis of Phrazle answer trends further examines difficulty patterns, identifying which types of phrases produce the lowest solve rates. Unfamiliar idioms and phrases from specific cultural contexts tend to be harder for the general player base, while widely known expressions are solved more quickly. These Phrazle statistics help players understand the difficulty landscape and calibrate their expectations for each puzzle.</p>
+
+<h2>Phrazle Archive Features and Benefits</h2>
+
+<p>Our Phrazle archive offers an excellent set of features designed for language lovers and puzzle enthusiasts. Each entry includes the target phrase, its category, the date it appeared, and a community difficulty rating, making our Phrazle answer history a comprehensive linguistic reference as well as a gameplay tool. The detailed categorization in our Phrazle past answers enables both quick lookups and thematic exploration of the game's phrase vocabulary.</p>
+
+<p>The Phrazle archive search functionality supports multiple query types, including date lookup, phrase search, and category filtering. Whether you want to find past Phrazle answers from a specific time period or explore all idiom-based phrases in the Phrazle phrase archive, our search tools deliver fast, accurate results. The archive is fully responsive, providing a seamless experience on any device.</p>
+
+<p>We are committed to maintaining the most complete and accurate Phrazle archive available online. Every entry in our Phrazle answer history is verified for accuracy, and daily updates ensure that new Phrazle past answers are always available promptly. With its comprehensive data, powerful search capabilities, and user-friendly design, our Phrazle archive is the definitive resource for Phrazle players and language enthusiasts everywhere.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>How far back does the Phrazle archive go?</h3>
+<p>Our Phrazle archive includes every Phrazle answer from the game's launch, providing a complete Phrazle phrase archive with an unbroken record of all past solutions. Every Phrazle past answer has been verified for accuracy.</p>
+
+<h3>How often is the Phrazle archive updated?</h3>
+<p>The Phrazle archive is updated daily, with each new Phrazle answer added shortly after the puzzle goes live. Our Phrazle answer history is always current and complete.</p>
+
+<h3>Can I search for a specific Phrazle answer?</h3>
+<p>Yes! Our Phrazle archive search allows you to find any past Phrazle answer by date, phrase, or category. Finding past Phrazle answers is quick and easy with our comprehensive search tools.</p>
+
+<h3>Is the Phrazle archive free?</h3>
+<p>Absolutely! The complete Phrazle archive, including all Phrazle past answers and search features, is entirely free to use. No subscriptions or payments are required to access our Phrazle phrase archive.</p>
+
+<h2>Related Pages</h2>
+
+<ul>
+<li><a href="https://wordsolverx.com/phrazle-answer-today">Phrazle Answer Today</a> - Today's Phrazle solution</li>
+<li><a href="https://wordsolverx.com/phrazle-solver">Phrazle Solver</a> - Solve Phrazle puzzles</li>
+<li><a href="https://wordsolverx.com/wordle-answer-archive">Wordle Archive</a> - Wordle past answers</li>
+</ul>
+
+
+        </article>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">Quick Links</div>
+                
+        <a href="https://wordsolverx.com/phrazle-answer-today" class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            <span>Phrazle Answer Today</span>
+        </a>
+        <a href="https://wordsolverx.com/phrazle-solver" class="sidebar-link">
+            <span class="sidebar-icon">🔧</span>
+            <span>Phrazle Solver</span>
+        </a>
+        <a href="https://wordsolverx.com/archive" class="sidebar-link">
+            <span class="sidebar-icon">📚</span>
+            <span>All Archives</span>
+        </a>
+        <a href="https://wordsolverx.com" class="sidebar-link">
+            <span class="sidebar-icon">🏠</span>
+            <span>Home</span>
+        </a>
+            </div>
+
+            <div class="visit-cta">
+                <p>Visit the full interactive tool</p>
+                <a href="https://wordsolverx.com/phrazle-archive">Open on WordSolverX →</a>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <h4>Solver Tools</h4>
+                <a href="https://wordsolverx.com/wordle-solver">Wordle Solver</a>
+                <a href="https://wordsolverx.com/quordle-solver">Quordle Solver</a>
+                <a href="https://wordsolverx.com/colordle-solver">Colordle Solver</a>
+                <a href="https://wordsolverx.com/phoodle-solver">Phoodle Solver</a>
+                <a href="https://wordsolverx.com/nerdle-solver">Nerdle Solver</a>
+            </div>
+            <div>
+                <h4>Daily Answers</h4>
+                <a href="https://wordsolverx.com/wordle-answer-today">Wordle Today</a>
+                <a href="https://wordsolverx.com/quordle-answer-today">Quordle Today</a>
+                <a href="https://wordsolverx.com/colordle-answer-today">Colordle Today</a>
+                <a href="https://wordsolverx.com/phoodle-answer-today">Phoodle Today</a>
+            </div>
+            <div>
+                <h4>Archives</h4>
+                <a href="https://wordsolverx.com/wordle-answer-archive">Wordle Archive</a>
+                <a href="https://wordsolverx.com/quordle-archive">Quordle Archive</a>
+                <a href="https://wordsolverx.com/archive">All Archives</a>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <a href="https://wordsolverx.com/about">About</a>
+                <a href="https://wordsolverx.com/contact">Contact</a>
+                <a href="https://wordsolverx.com/privacy-policy">Privacy</a>
+                <a href="https://wordsolverx.com/terms-of-service">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 WordSolverX. All rights reserved. | <a href="https://wordsolverx.com">wordsolverx.com</a>
+        </div>
+    </footer>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Phrazle Archive",
+        "description": "Complete archive of past Phrazle answers",
+        "url": "https://wordsolverx.com/phrazle-archive",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "WordSolverX",
+            "url": "https://wordsolverx.com"
+        }
+    }
+    </script>
+</body>
+</html>

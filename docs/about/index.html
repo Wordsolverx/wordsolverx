@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - WordSolverX</title>
+    <meta name="description" content="About. Free online tool at WordSolverX.">
+    <meta name="keywords" content="about, about tool, word solver, puzzle solver, daily answers">
+    <link rel="canonical" href="https://wordsolverx.com/about">
+    <meta property="og:title" content="About - WordSolverX">
+    <meta property="og:description" content="About">
+    <meta property="og:url" content="https://wordsolverx.com/about">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="About - WordSolverX">
+    <link rel="icon" href="https://wordsolverx.com/favicon.ico">
+    <style>
+        :root {
+            --primary: #64748B;
+            --primary-dark: #64748Bdd;
+            --primary-light: #64748B22;
+            --bg: #ffffff;
+            --bg-alt: #f8fafc;
+            --text: #1a1a2e;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #64748B 0%, #475569 100%);
+            padding: 48px 24px;
+            color: white;
+        }
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            opacity: 0.92;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb .sep { margin: 0 6px; }
+
+        /* Main Layout */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 48px;
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 32px;
+        }
+
+        /* Content */
+        .content {
+            min-width: 0;
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 32px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .content h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin: 24px 0 12px;
+        }
+
+        .content p {
+            margin: 0 0 16px;
+            color: #374151;
+        }
+
+        .content ul {
+            margin: 0 0 16px 24px;
+        }
+
+        .content li {
+            margin: 8px 0;
+            color: #374151;
+        }
+
+        .content a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        .content strong {
+            color: var(--text);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 32px;
+        }
+
+        .faq-item {
+            background: var(--bg-alt);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .faq-question {
+            padding: 16px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .faq-answer {
+            padding: 0 20px 16px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            align-self: start;
+        }
+
+        .sidebar-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+
+        .sidebar-link:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .sidebar-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Visit Main Site CTA */
+        .visit-cta {
+            background: linear-gradient(135deg, #64748B 0%, #475569 100%);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            color: white;
+            margin-top: 16px;
+        }
+
+        .visit-cta p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .visit-cta a {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: #94a3b8;
+            padding: 48px 24px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .footer h4 {
+            color: white;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            padding: 3px 0;
+            font-size: 0.85rem;
+        }
+
+        .footer a:hover { color: white; }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 24px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid #334155;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+            }
+            .hero h1 { font-size: 1.6rem; }
+            .hero-icon { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+
+        /* Schema markup hidden */
+        .schema { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="https://wordsolverx.com" class="logo">
+                <div class="logo-icon">🧩</div>
+                WordSolverX
+            </a>
+            <nav class="nav-links">
+                <a href="https://wordsolverx.com/solver">Solvers</a>
+                <a href="https://wordsolverx.com/today">Daily Answers</a>
+                <a href="https://wordsolverx.com/archive">Archives</a>
+                <a href="https://wordsolverx.com/guides">Guides</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="hero-icon">ℹ️</span>
+            <h1>About</h1>
+            <p>About</p>
+            <a href="https://wordsolverx.com/about" class="cta-button">🔗 Visit Page</a>
+        </div>
+    </section>
+
+    
+    <nav class="breadcrumb">
+        <a href="https://wordsolverx.com">Home</a>
+        <span class="sep">›</span>
+        <a href="https://wordsolverx.com/info">Info</a>
+        <span class="sep">›</span>
+        <span class="current">About</span>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <article class="content">
+            <h1>About WordSolverX | Puzzle Answers, Archives, and Solver Tools</h1>
+
+<h2>About This Page</h2>
+
+<p>This page provides essential information about WordSolverX and our commitment to serving the puzzle community. WordSolverX has established itself as a leading resource for daily puzzle answers, solver tools, and comprehensive archives, helping millions of players enhance their puzzle-solving experience since its inception.</p>
+
+<h2>Our Mission and Values</h2>
+
+<p>WordSolverX was created with a simple mission: to provide puzzle enthusiasts with accurate, timely, and accessible resources for solving their favorite daily puzzles. We believe that puzzles should be enjoyable, and while we provide answers and tools, our goal is to enhance rather than replace the solving experience.</p>
+
+<p>Our core values include accuracy in all our published content, user privacy and data protection, accessibility for all users regardless of technical expertise, and continuous improvement based on user feedback. These values guide every decision we make about the platform.</p>
+
+<h2>What WordSolverX Offers</h2>
+
+<p>WordSolverX provides a comprehensive suite of resources for puzzle players. Our daily answer pages are updated at midnight each day, providing verified solutions for over 20 different puzzle games. These pages include not just the answers but also helpful hints, contextual information, and links to related resources.</p>
+
+<p>Our solver tools represent some of the most sophisticated puzzle-solving assistance available online. Using advanced algorithms and comprehensive word databases, these tools can help players narrow down possibilities and find answers when they are stuck. Each solver is tailored to the specific game it supports, ensuring optimal accuracy and relevance.</p>
+
+<p>The archive sections provide complete historical records of past puzzle solutions. These archives are invaluable for players who want to catch up on missed puzzles, researchers studying puzzle patterns, or anyone curious about puzzle history.</p>
+
+<h2>Our Commitment to Quality</h2>
+
+<p>Quality is paramount in everything we do at WordSolverX. Every answer we publish is verified against official sources to ensure accuracy. Our solver tools are continuously tested and refined to provide the best possible suggestions. Our archives are maintained with meticulous attention to detail to ensure completeness and correctness.</p>
+
+<p>We also prioritize the user experience on our platform. Our pages are designed to load quickly and display correctly on all devices. We avoid intrusive advertising and unnecessary clutter, focusing instead on providing the information users need in a clean, accessible format.</p>
+
+<h2>User Privacy and Data Protection</h2>
+
+<p>We take user privacy seriously. WordSolverX operates with minimal data collection, storing only what is necessary for site functionality. We do not sell user data to third parties, and we do not track individual users across sessions. Our privacy practices are designed to protect our users while still providing a functional, useful service.</p>
+
+<p>For detailed information about our privacy practices, please refer to our Privacy Policy page. We are committed to transparency about what data we collect and how we use it.</p>
+
+<h2>Contact and Feedback</h2>
+
+<p>We welcome feedback from our users. Whether you have found an error that needs correction, have suggestions for improving our tools, or want to request coverage of a new puzzle game, we want to hear from you. Our team reviews all feedback and uses it to guide ongoing improvements to the platform.</p>
+
+<p>You can reach us through the contact information provided on this site. We make every effort to respond to inquiries promptly and to address any issues that are brought to our attention.</p>
+
+<h2>Independent Status</h2>
+
+<p>WordSolverX is an independent website not affiliated with The New York Times, Wordle, or any other game publishers whose puzzles we cover. We provide answers and tools as a service to the puzzle community, but we do not claim any official relationship with the games we support.</p>
+
+<p>All game names, logos, and trademarks mentioned on this site are the property of their respective owners. We use these names for identification and informational purposes only, with no intention of implying endorsement or affiliation.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>What is WordSolverX?</h3>
+<p>WordSolverX is a free online platform providing daily puzzle answers, advanced solver tools, and comprehensive archives for over 20 popular word and trivia puzzle games. We help millions of players enhance their puzzle-solving experience with accurate, timely resources.</p>
+
+<h3>Is WordSolverX affiliated with Wordle or The New York Times?</h3>
+<p>No, WordSolverX is an independent website not affiliated with The New York Times, Wordle, or any other game publishers. We provide answers and tools as a service to the puzzle community for informational purposes only.</p>
+
+<h3>How does WordSolverX ensure answer accuracy?</h3>
+<p>Every answer we publish is verified against official sources before it goes live. Our solver tools are continuously tested and refined, and our archives are maintained with meticulous attention to detail to ensure completeness and correctness.</p>
+
+<h3>Does WordSolverX collect personal data?</h3>
+<p>WordSolverX operates with minimal data collection and does not sell user data to third parties. We do not track individual users across sessions. For full details, please see our Privacy Policy page.</p>
+
+<h2>Related Pages</h2>
+
+<ul>
+<li><a href="https://wordsolverx.com/solver">Puzzle Solver Tools</a> - Access all WordSolverX solver tools</li>
+<li><a href="https://wordsolverx.com/today">Today's Puzzle Answers</a> - Get today's answers for all puzzles</li>
+<li><a href="https://wordsolverx.com/contact">Contact Us</a> - Reach out with feedback or questions</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>WordSolverX is committed to being the best possible resource for puzzle enthusiasts. Through our daily answers, solver tools, and comprehensive archives, we provide everything players need to enjoy and succeed at their favorite puzzles. Thank you for visiting, and we hope you find our resources helpful.</p>
+
+
+        </article>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">Quick Links</div>
+                
+        <a href="https://wordsolverx.com" class="sidebar-link">
+            <span class="sidebar-icon">🏠</span>
+            <span>Home</span>
+        </a>
+            </div>
+
+            <div class="visit-cta">
+                <p>Visit the full interactive tool</p>
+                <a href="https://wordsolverx.com/about">Open on WordSolverX →</a>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <h4>Solver Tools</h4>
+                <a href="https://wordsolverx.com/wordle-solver">Wordle Solver</a>
+                <a href="https://wordsolverx.com/quordle-solver">Quordle Solver</a>
+                <a href="https://wordsolverx.com/colordle-solver">Colordle Solver</a>
+                <a href="https://wordsolverx.com/phoodle-solver">Phoodle Solver</a>
+                <a href="https://wordsolverx.com/nerdle-solver">Nerdle Solver</a>
+            </div>
+            <div>
+                <h4>Daily Answers</h4>
+                <a href="https://wordsolverx.com/wordle-answer-today">Wordle Today</a>
+                <a href="https://wordsolverx.com/quordle-answer-today">Quordle Today</a>
+                <a href="https://wordsolverx.com/colordle-answer-today">Colordle Today</a>
+                <a href="https://wordsolverx.com/phoodle-answer-today">Phoodle Today</a>
+            </div>
+            <div>
+                <h4>Archives</h4>
+                <a href="https://wordsolverx.com/wordle-answer-archive">Wordle Archive</a>
+                <a href="https://wordsolverx.com/quordle-archive">Quordle Archive</a>
+                <a href="https://wordsolverx.com/archive">All Archives</a>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <a href="https://wordsolverx.com/about">About</a>
+                <a href="https://wordsolverx.com/contact">Contact</a>
+                <a href="https://wordsolverx.com/privacy-policy">Privacy</a>
+                <a href="https://wordsolverx.com/terms-of-service">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 WordSolverX. All rights reserved. | <a href="https://wordsolverx.com">wordsolverx.com</a>
+        </div>
+    </footer>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "About",
+        "description": "About",
+        "url": "https://wordsolverx.com/about",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "WordSolverX",
+            "url": "https://wordsolverx.com"
+        }
+    }
+    </script>
+</body>
+</html>

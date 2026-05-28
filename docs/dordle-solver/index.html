@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dordle Solver - WordSolverX</title>
+    <meta name="description" content="Double Wordle solver. Free online tool at WordSolverX.">
+    <meta name="keywords" content="dordle solver, dordle solver tool, word solver, puzzle solver, daily answers">
+    <link rel="canonical" href="https://wordsolverx.com/dordle-solver">
+    <meta property="og:title" content="Dordle Solver - WordSolverX">
+    <meta property="og:description" content="Double Wordle solver">
+    <meta property="og:url" content="https://wordsolverx.com/dordle-solver">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Dordle Solver - WordSolverX">
+    <link rel="icon" href="https://wordsolverx.com/favicon.ico">
+    <style>
+        :root {
+            --primary: #2563EB;
+            --primary-dark: #2563EBdd;
+            --primary-light: #2563EB22;
+            --bg: #ffffff;
+            --bg-alt: #f0fdf4;
+            --text: #1a1a2e;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #6AAA64 0%, #4A8A4A 100%);
+            padding: 48px 24px;
+            color: white;
+        }
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            opacity: 0.92;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb .sep { margin: 0 6px; }
+
+        /* Main Layout */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 48px;
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 32px;
+        }
+
+        /* Content */
+        .content {
+            min-width: 0;
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 32px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .content h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin: 24px 0 12px;
+        }
+
+        .content p {
+            margin: 0 0 16px;
+            color: #374151;
+        }
+
+        .content ul {
+            margin: 0 0 16px 24px;
+        }
+
+        .content li {
+            margin: 8px 0;
+            color: #374151;
+        }
+
+        .content a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        .content strong {
+            color: var(--text);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 32px;
+        }
+
+        .faq-item {
+            background: var(--bg-alt);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .faq-question {
+            padding: 16px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .faq-answer {
+            padding: 0 20px 16px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            align-self: start;
+        }
+
+        .sidebar-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+
+        .sidebar-link:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .sidebar-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Visit Main Site CTA */
+        .visit-cta {
+            background: linear-gradient(135deg, #6AAA64 0%, #4A8A4A 100%);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            color: white;
+            margin-top: 16px;
+        }
+
+        .visit-cta p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .visit-cta a {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: #94a3b8;
+            padding: 48px 24px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .footer h4 {
+            color: white;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            padding: 3px 0;
+            font-size: 0.85rem;
+        }
+
+        .footer a:hover { color: white; }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 24px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid #334155;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+            }
+            .hero h1 { font-size: 1.6rem; }
+            .hero-icon { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+
+        /* Schema markup hidden */
+        .schema { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="https://wordsolverx.com" class="logo">
+                <div class="logo-icon">🧩</div>
+                WordSolverX
+            </a>
+            <nav class="nav-links">
+                <a href="https://wordsolverx.com/solver">Solvers</a>
+                <a href="https://wordsolverx.com/today">Daily Answers</a>
+                <a href="https://wordsolverx.com/archive">Archives</a>
+                <a href="https://wordsolverx.com/guides">Guides</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="hero-icon">✌️</span>
+            <h1>Dordle Solver</h1>
+            <p>Double Wordle solver</p>
+            <a href="https://wordsolverx.com/dordle-solver" class="cta-button">🚀 Try This Solver</a>
+        </div>
+    </section>
+
+    
+    <nav class="breadcrumb">
+        <a href="https://wordsolverx.com">Home</a>
+        <span class="sep">›</span>
+        <a href="https://wordsolverx.com/solver">Solvers</a>
+        <span class="sep">›</span>
+        <span class="current">Dordle Solver</span>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <article class="content">
+            <h1>Dordle Solver - Solve Both Words in Double Wordle</h1>
+
+<h2>Introduction to Dordle Solver</h2>
+
+<p>The Dordle solver is your essential tool for mastering the double Wordle challenge that has taken the puzzle world by storm. Dordle asks players to solve two five-letter word puzzles simultaneously, sharing guesses between both boards—a challenge that requires strategic thinking and efficient word selection. Whether you are searching for the Dordle answer today or need Dordle hints to guide your guesses, this double Wordle solver provides the assistance you need.</p>
+
+<p>Playing two Wordle puzzles at once fundamentally changes the strategy. Each guess provides feedback for both boards, which means you need to think about how your word choices affect both puzzles at the same time. The Dordle solver is specifically designed to handle this complexity, analyzing clues from both boards simultaneously and suggesting words that maximize information gain across both puzzles. If you have ever wondered how to solve Dordle more efficiently, this tool delivers the solution.</p>
+
+<h2>How the Dordle Solver Works</h2>
+
+<p>The Dordle solver takes your clues from both word boards and processes them through a dual-filtering algorithm. You enter the feedback for each board—green letters in correct positions, yellow letters in wrong positions, and gray eliminated letters—and the solver cross-references both sets of constraints to find words that could be valid answers for either board.</p>
+
+<p>The double Wordle solver uses a strategy of maximizing information gain across both puzzles. Rather than just finding words that fit one board, it suggests guesses that help narrow down both puzzles simultaneously. This is crucial because you only have seven guesses to solve both words, making every guess count. The solver ranks candidates by how much they reduce the total number of possibilities across both boards, ensuring you find the Dordle answer today in the fewest possible guesses. The Dordle hints it provides are tailored to the unique dual-board mechanics of the game.</p>
+
+<h2>Key Features of Dordle Solver</h2>
+
+<p>The Dordle solver is built for speed and precision. Results are generated in milliseconds, allowing you to make your next guess without delay. The dual-board analysis is the standout feature—unlike generic Wordle solvers that only handle one puzzle, this tool understands the interplay between two simultaneous games and optimizes suggestions accordingly.</p>
+
+<p>The comprehensive word database includes all valid Dordle answers and guesses, ensuring that every suggestion is a legitimate option in the game. Regular updates keep the database current and accurate. The solver also provides Dordle hints that explain why certain words are better guesses in a double Wordle context, helping you develop the strategic thinking needed to excel at the game without the solver over time.</p>
+
+<h2>Strategy Tips for Using Dordle Solver</h2>
+
+<p>When learning how to solve Dordle effectively, the most important strategy is to prioritize guesses that provide information for both boards. Early in the game, focus on words that use letters you have not yet tested on either board. This maximizes the information you gain from each guess and reduces the total search space faster.</p>
+
+<p>Another key tip is to handle one board at a time when the solver presents many possibilities. If one board is nearly solved while the other still has many candidates, focus your next guess on the unsolved board while still using letters that might help confirm the nearly-solved one. The double Wordle solver can help you determine which board to prioritize. For those looking for the Dordle answer today, this balanced approach typically leads to solving both words within the seven-guess limit.</p>
+
+<h2>Why Choose WordSolverX for Your Puzzle Needs</h2>
+
+<p>WordSolverX is the go-to platform for puzzle solvers of all kinds, offering tools that are fast, free, and accurate. The <a href="https://wordsolverx.com/wordle-solver">Wordle solver</a> is perfect for single-board games, while the <a href="https://wordsolverx.com/quordle-solver">Quordle solver</a> handles four-word challenges. For the ultimate multi-board test, the <a href="https://wordsolverx.com/octordle-solver">Octordle solver</a> tackles eight simultaneous puzzles.</p>
+
+<h2>Related Solvers</h2>
+
+<ul>
+<li><a href="https://wordsolverx.com/wordle-solver">Wordle Solver</a> - Classic Wordle assistance</li>
+<li><a href="https://wordsolverx.com/quordle-solver">Quordle Solver</a> - Four-word challenge helper</li>
+<li><a href="https://wordsolverx.com/octordle-solver">Octordle Solver</a> - Eight-word challenge helper</li>
+<li><a href="https://wordsolverx.com/xordle-solver">Xordle Solver</a> - Dual hidden word solver</li>
+</ul>
+
+<h2>FAQ</h2>
+
+<p><strong>What is Dordle and how is it different from Wordle?</strong></p>
+<p>Dordle is a double Wordle game where you solve two five-letter word puzzles at the same time, sharing guesses between both boards. You get seven guesses total to find both words.</p>
+
+<p><strong>How do I get the Dordle answer today?</strong></p>
+<p>Enter your guesses and the color-coded feedback from both Dordle boards into the solver, and it will show you the most likely words for each board ranked by probability.</p>
+
+<p><strong>What is the best strategy for Dordle?</strong></p>
+<p>The best strategy is to use guesses that provide useful information for both boards simultaneously, especially in the early rounds. The Dordle solver can help you identify these optimal guesses.</p>
+
+<p><strong>Is the Dordle solver free?</strong></p>
+<p>Yes, the Dordle solver on WordSolverX is completely free and requires no registration.</p>
+
+<h2>Conclusion</h2>
+
+<p>The Dordle solver is the ultimate companion for the double Wordle challenge, providing smart, dual-board analysis that helps you find the Dordle answer today with confidence. With its specialized algorithms, instant results, and helpful Dordle hints, it makes the two-board challenge manageable and fun. Whether you are a Dordle beginner or a seasoned player looking to optimize your strategy, this double Wordle solver has everything you need. Try it now and solve both words every time!</p>
+
+
+        </article>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">Quick Links</div>
+                
+        <a href="https://wordsolverx.com/dordle-answer-today" class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            <span>Dordle Answer Today</span>
+        </a>
+        <a href="https://wordsolverx.com/dordle-archive" class="sidebar-link">
+            <span class="sidebar-icon">📚</span>
+            <span>Dordle Archive</span>
+        </a>
+        <a href="https://wordsolverx.com/solver" class="sidebar-link">
+            <span class="sidebar-icon">🔧</span>
+            <span>All Solvers</span>
+        </a>
+        <a href="https://wordsolverx.com" class="sidebar-link">
+            <span class="sidebar-icon">🏠</span>
+            <span>Home</span>
+        </a>
+            </div>
+
+            <div class="visit-cta">
+                <p>Visit the full interactive tool</p>
+                <a href="https://wordsolverx.com/dordle-solver">Open on WordSolverX →</a>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <h4>Solver Tools</h4>
+                <a href="https://wordsolverx.com/wordle-solver">Wordle Solver</a>
+                <a href="https://wordsolverx.com/quordle-solver">Quordle Solver</a>
+                <a href="https://wordsolverx.com/colordle-solver">Colordle Solver</a>
+                <a href="https://wordsolverx.com/phoodle-solver">Phoodle Solver</a>
+                <a href="https://wordsolverx.com/nerdle-solver">Nerdle Solver</a>
+            </div>
+            <div>
+                <h4>Daily Answers</h4>
+                <a href="https://wordsolverx.com/wordle-answer-today">Wordle Today</a>
+                <a href="https://wordsolverx.com/quordle-answer-today">Quordle Today</a>
+                <a href="https://wordsolverx.com/colordle-answer-today">Colordle Today</a>
+                <a href="https://wordsolverx.com/phoodle-answer-today">Phoodle Today</a>
+            </div>
+            <div>
+                <h4>Archives</h4>
+                <a href="https://wordsolverx.com/wordle-answer-archive">Wordle Archive</a>
+                <a href="https://wordsolverx.com/quordle-archive">Quordle Archive</a>
+                <a href="https://wordsolverx.com/archive">All Archives</a>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <a href="https://wordsolverx.com/about">About</a>
+                <a href="https://wordsolverx.com/contact">Contact</a>
+                <a href="https://wordsolverx.com/privacy-policy">Privacy</a>
+                <a href="https://wordsolverx.com/terms-of-service">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 WordSolverX. All rights reserved. | <a href="https://wordsolverx.com">wordsolverx.com</a>
+        </div>
+    </footer>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Dordle Solver",
+        "description": "Double Wordle solver",
+        "url": "https://wordsolverx.com/dordle-solver",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "WordSolverX",
+            "url": "https://wordsolverx.com"
+        }
+    }
+    </script>
+</body>
+</html>

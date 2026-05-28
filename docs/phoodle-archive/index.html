@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phoodle Archive - WordSolverX</title>
+    <meta name="description" content="Complete archive of past Phoodle answers. Free online tool at WordSolverX.">
+    <meta name="keywords" content="phoodle archive, phoodle archive tool, word solver, puzzle solver, daily answers">
+    <link rel="canonical" href="https://wordsolverx.com/phoodle-archive">
+    <meta property="og:title" content="Phoodle Archive - WordSolverX">
+    <meta property="og:description" content="Complete archive of past Phoodle answers">
+    <meta property="og:url" content="https://wordsolverx.com/phoodle-archive">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Phoodle Archive - WordSolverX">
+    <link rel="icon" href="https://wordsolverx.com/favicon.ico">
+    <style>
+        :root {
+            --primary: #8B5CF6;
+            --primary-dark: #8B5CF6dd;
+            --primary-light: #8B5CF622;
+            --bg: #ffffff;
+            --bg-alt: #f5f3ff;
+            --text: #1a1a2e;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 40px rgba(0,0,0,0.1);
+            --radius: 12px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.7;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 800;
+            font-size: 1.3rem;
+        }
+
+        .logo-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--primary);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .nav-links a:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            padding: 48px 24px;
+            color: white;
+        }
+
+        .hero-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .hero-icon {
+            font-size: 3.5rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        .hero h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            opacity: 0.92;
+            max-width: 600px;
+            margin: 0 auto 24px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 16px 24px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .breadcrumb .sep { margin: 0 6px; }
+
+        /* Main Layout */
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px 48px;
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 32px;
+        }
+
+        /* Content */
+        .content {
+            min-width: 0;
+        }
+
+        .content h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 32px 0 16px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary-light);
+        }
+
+        .content h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin: 24px 0 12px;
+        }
+
+        .content p {
+            margin: 0 0 16px;
+            color: #374151;
+        }
+
+        .content ul {
+            margin: 0 0 16px 24px;
+        }
+
+        .content li {
+            margin: 8px 0;
+            color: #374151;
+        }
+
+        .content a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .content a:hover {
+            text-decoration: underline;
+        }
+
+        .content strong {
+            color: var(--text);
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            margin-top: 32px;
+        }
+
+        .faq-item {
+            background: var(--bg-alt);
+            border-radius: var(--radius);
+            margin-bottom: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .faq-question {
+            padding: 16px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .faq-answer {
+            padding: 0 20px 16px;
+            color: var(--text-muted);
+            display: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: sticky;
+            top: 80px;
+            align-self: start;
+        }
+
+        .sidebar-card {
+            background: var(--bg-alt);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 16px;
+        }
+
+        .sidebar-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin-bottom: 12px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.15s;
+        }
+
+        .sidebar-link:hover {
+            background: var(--primary-light);
+            color: var(--primary);
+        }
+
+        .sidebar-icon {
+            font-size: 1.1rem;
+        }
+
+        /* Visit Main Site CTA */
+        .visit-cta {
+            background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+            border-radius: var(--radius);
+            padding: 24px;
+            text-align: center;
+            color: white;
+            margin-top: 16px;
+        }
+
+        .visit-cta p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-bottom: 12px;
+        }
+
+        .visit-cta a {
+            display: inline-block;
+            background: white;
+            color: var(--primary);
+            padding: 10px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a2e;
+            color: #94a3b8;
+            padding: 48px 24px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 32px;
+        }
+
+        .footer h4 {
+            color: white;
+            margin-bottom: 12px;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #94a3b8;
+            text-decoration: none;
+            display: block;
+            padding: 3px 0;
+            font-size: 0.85rem;
+        }
+
+        .footer a:hover { color: white; }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 24px auto 0;
+            padding-top: 24px;
+            border-top: 1px solid #334155;
+            text-align: center;
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                position: static;
+            }
+            .hero h1 { font-size: 1.6rem; }
+            .hero-icon { font-size: 2.5rem; }
+            .nav-links { display: none; }
+        }
+
+        /* Schema markup hidden */
+        .schema { display: none; }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <a href="https://wordsolverx.com" class="logo">
+                <div class="logo-icon">🧩</div>
+                WordSolverX
+            </a>
+            <nav class="nav-links">
+                <a href="https://wordsolverx.com/solver">Solvers</a>
+                <a href="https://wordsolverx.com/today">Daily Answers</a>
+                <a href="https://wordsolverx.com/archive">Archives</a>
+                <a href="https://wordsolverx.com/guides">Guides</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-inner">
+            <span class="hero-icon">📚</span>
+            <h1>Phoodle Archive</h1>
+            <p>Complete archive of past Phoodle answers</p>
+            <a href="https://wordsolverx.com/phoodle-archive" class="cta-button">📚 Browse Archive</a>
+        </div>
+    </section>
+
+    
+    <nav class="breadcrumb">
+        <a href="https://wordsolverx.com">Home</a>
+        <span class="sep">›</span>
+        <a href="https://wordsolverx.com/archive">Archives</a>
+        <span class="sep">›</span>
+        <span class="current">Phoodle Archive</span>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main">
+        <article class="content">
+            <h1>Phoodle Archive - Complete Past Phoodle Answers & Solutions</h1>
+
+<h2>Complete Phoodle Food Word Archive</h2>
+
+<p>Welcome to the most comprehensive Phoodle archive online, your definitive source for all Phoodle past answers and solutions. Phoodle, the delightful food-themed Wordle variant that challenges players to guess culinary words ranging from ingredients to cooking techniques, has become a daily treat for foodies and word puzzle enthusiasts alike. Our Phoodle archive preserves every daily answer, creating a thorough Phoodle food word archive with a complete Phoodle answer history that you can browse, search, and enjoy at any time.</p>
+
+<p>The Phoodle archive is carefully curated to capture the full culinary diversity of this beloved game. Every entry in our Phoodle past answers collection includes the target word, the date it appeared, and its food category — whether it is an ingredient, a cooking method, a dish name, or a kitchen tool. This makes our Phoodle food word archive not just a gameplay reference, but a culinary vocabulary builder that expands your knowledge of food terminology with each entry you explore.</p>
+
+<p>Whether you missed yesterday's puzzle or want to study months of Phoodle past answers for patterns in food word selection, our archive has you covered. The complete Phoodle answer history is organized chronologically and fully searchable, ensuring you can find any past culinary solution in seconds. From common ingredients like "BASIL" to obscure cooking terms like "BLANCH," every Phoodle answer is documented in our comprehensive food word archive.</p>
+
+<h2>The Value of Historical Phoodle Data</h2>
+
+<p>A comprehensive Phoodle previous answers database provides significant value for food lovers and competitive players. The Phoodle answer list reveals which categories of food words appear most frequently — whether ingredients dominate over cooking techniques, or whether international cuisine terms are as common as domestic ones. By studying the Phoodle solution history, players can develop more effective guessing strategies tailored to the game's culinary vocabulary, improving both their solve rate and their food knowledge.</p>
+
+<p>The Phoodle archive also serves as an essential catch-up resource for players who missed a day. There is nothing more frustrating than missing a Phoodle puzzle, especially when the answer turns out to be a favorite food or cooking term. Our Phoodle previous answers collection ensures you can always find the solution and see which culinary category it belongs to. The complete Phoodle answer list preserves every food word that has appeared in the game, and the full Phoodle solution history remains accessible as a reference and learning tool.</p>
+
+<p>Beyond its gameplay utility, the Phoodle food word archive doubles as a culinary education resource. By browsing through the Phoodle past answers, you will encounter food terms and ingredients you may never have known, from international delicacies to professional cooking techniques. The Phoodle answer history transforms daily gameplay into an ongoing culinary education, making it valuable for anyone interested in expanding their food vocabulary and knowledge.</p>
+
+<h2>How to Use This Phoodle Archive</h2>
+
+<p>Our Phoodle archive search is designed for quick and intuitive navigation. The archive lists Phoodle past answers in reverse chronological order, with the most recent culinary solutions appearing first. You can browse the complete Phoodle answer history by scrolling through the entries or use the search and filter tools to find specific answers by date, word, or food category.</p>
+
+<p>To find past Phoodle answers for a particular date, navigate to the corresponding month and locate the date in question. Each Phoodle archive entry includes the target word, its food category, and the date it appeared. Our Phoodle archive search also supports filtering by food category — such as ingredients, cooking methods, dishes, or kitchen tools — making it easy to study patterns within specific culinary domains of the Phoodle food word archive.</p>
+
+<p>For players looking to improve their Phoodle performance, we recommend reviewing recent entries in the Phoodle answer history to identify current trends in word selection. You can also use the Phoodle archive search to check whether a specific food word has already appeared as an answer, which can help you avoid redundant guesses. Our archive makes strategic analysis both easy and productive.</p>
+
+<h2>Statistical Insights from Phoodle Archives</h2>
+
+<p>Statistical analysis of the Phoodle archive reveals interesting patterns in food word selection and category distribution. Phoodle patterns show a strong preference for common ingredient names and cooking techniques, with five-letter food words that are widely recognized appearing more frequently than obscure culinary jargon. These Phoodle statistics can guide your initial guesses toward more likely categories, improving your chances of an early solve.</p>
+
+<p>Phoodle answer trends also indicate seasonal variations in word selection, with holiday-related food terms appearing during festive periods and seasonal ingredients showing up at appropriate times of year. By monitoring these Phoodle patterns through our archive data, observant players can gain a predictive edge during holiday seasons. The Phoodle statistics tracked in our archive include category distribution, word length patterns, and seasonal frequency data.</p>
+
+<p>Our analysis of Phoodle answer trends further examines difficulty patterns, identifying which types of food words produce the lowest community solve rates. Unfamiliar cooking techniques and international ingredients tend to be harder for players to guess, while common foods and well-known ingredients are solved more quickly. These Phoodle statistics help players understand the difficulty landscape and set appropriate expectations for each puzzle.</p>
+
+<h2>Phoodle Archive Features and Benefits</h2>
+
+<p>Our Phoodle archive offers a rich set of features designed for food lovers and puzzle players. Each entry includes the answer word, its food category, the date it appeared, and a community difficulty rating, making our Phoodle answer history a comprehensive culinary reference as well as a gaming resource. The detailed categorization in our Phoodle past answers enables both quick lookups and thematic exploration of the game's food vocabulary.</p>
+
+<p>The Phoodle archive search functionality supports multiple query types, including date lookup, word search, and food category filtering. Whether you want to find past Phoodle answers from a specific time period or explore all cooking technique words in the Phoodle food word archive, our search tools deliver fast, accurate results. The archive is fully responsive, providing a seamless experience on any device.</p>
+
+<p>We are dedicated to maintaining the most complete and accurate Phoodle archive available online. Every entry in our Phoodle answer history is verified for accuracy, and daily updates ensure that new Phoodle past answers are always available promptly. With its comprehensive data, powerful search capabilities, and user-friendly design, our Phoodle archive is the definitive resource for Phoodle players and food enthusiasts everywhere.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>How far back does the Phoodle archive go?</h3>
+<p>Our Phoodle archive includes every Phoodle answer from the game's launch, providing a complete Phoodle food word archive with an unbroken record of all past solutions. Every Phoodle past answer has been verified for accuracy.</p>
+
+<h3>How often is the Phoodle archive updated?</h3>
+<p>The Phoodle archive is updated daily, with each new Phoodle answer added shortly after the puzzle goes live. Our Phoodle answer history is always current and complete.</p>
+
+<h3>Can I search for a specific Phoodle answer?</h3>
+<p>Yes! Our Phoodle archive search allows you to find any past Phoodle answer by date, word, or food category. Finding past Phoodle answers is quick and straightforward with our comprehensive search tools.</p>
+
+<h3>Is the Phoodle archive free?</h3>
+<p>Absolutely! The complete Phoodle archive, including all Phoodle past answers and search features, is entirely free to use. No subscriptions or payments are required to access our Phoodle food word archive.</p>
+
+<h2>Related Pages</h2>
+
+<ul>
+<li><a href="https://wordsolverx.com/phoodle-answer-today">Phoodle Answer Today</a> - Today's Phoodle solution</li>
+<li><a href="https://wordsolverx.com/phoodle-solver">Phoodle Solver</a> - Solve Phoodle puzzles</li>
+<li><a href="https://wordsolverx.com/wordle-answer-archive">Wordle Archive</a> - Wordle past answers</li>
+</ul>
+
+
+        </article>
+
+        <aside class="sidebar">
+            <div class="sidebar-card">
+                <div class="sidebar-title">Quick Links</div>
+                
+        <a href="https://wordsolverx.com/phoodle-answer-today" class="sidebar-link">
+            <span class="sidebar-icon">📅</span>
+            <span>Phoodle Answer Today</span>
+        </a>
+        <a href="https://wordsolverx.com/phoodle-solver" class="sidebar-link">
+            <span class="sidebar-icon">🔧</span>
+            <span>Phoodle Solver</span>
+        </a>
+        <a href="https://wordsolverx.com/archive" class="sidebar-link">
+            <span class="sidebar-icon">📚</span>
+            <span>All Archives</span>
+        </a>
+        <a href="https://wordsolverx.com" class="sidebar-link">
+            <span class="sidebar-icon">🏠</span>
+            <span>Home</span>
+        </a>
+            </div>
+
+            <div class="visit-cta">
+                <p>Visit the full interactive tool</p>
+                <a href="https://wordsolverx.com/phoodle-archive">Open on WordSolverX →</a>
+            </div>
+        </aside>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-inner">
+            <div>
+                <h4>Solver Tools</h4>
+                <a href="https://wordsolverx.com/wordle-solver">Wordle Solver</a>
+                <a href="https://wordsolverx.com/quordle-solver">Quordle Solver</a>
+                <a href="https://wordsolverx.com/colordle-solver">Colordle Solver</a>
+                <a href="https://wordsolverx.com/phoodle-solver">Phoodle Solver</a>
+                <a href="https://wordsolverx.com/nerdle-solver">Nerdle Solver</a>
+            </div>
+            <div>
+                <h4>Daily Answers</h4>
+                <a href="https://wordsolverx.com/wordle-answer-today">Wordle Today</a>
+                <a href="https://wordsolverx.com/quordle-answer-today">Quordle Today</a>
+                <a href="https://wordsolverx.com/colordle-answer-today">Colordle Today</a>
+                <a href="https://wordsolverx.com/phoodle-answer-today">Phoodle Today</a>
+            </div>
+            <div>
+                <h4>Archives</h4>
+                <a href="https://wordsolverx.com/wordle-answer-archive">Wordle Archive</a>
+                <a href="https://wordsolverx.com/quordle-archive">Quordle Archive</a>
+                <a href="https://wordsolverx.com/archive">All Archives</a>
+            </div>
+            <div>
+                <h4>Company</h4>
+                <a href="https://wordsolverx.com/about">About</a>
+                <a href="https://wordsolverx.com/contact">Contact</a>
+                <a href="https://wordsolverx.com/privacy-policy">Privacy</a>
+                <a href="https://wordsolverx.com/terms-of-service">Terms</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2026 WordSolverX. All rights reserved. | <a href="https://wordsolverx.com">wordsolverx.com</a>
+        </div>
+    </footer>
+
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Phoodle Archive",
+        "description": "Complete archive of past Phoodle answers",
+        "url": "https://wordsolverx.com/phoodle-archive",
+        "isPartOf": {
+            "@type": "WebSite",
+            "name": "WordSolverX",
+            "url": "https://wordsolverx.com"
+        }
+    }
+    </script>
+</body>
+</html>
