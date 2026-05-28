@@ -1,0 +1,19 @@
+title: WordSolverX - Free Puzzle Solver Tools & Daily Answers
+description: Free online puzzle solvers and daily answers for Wordle, Quordle, Colordle, Phoodle, Nerdle, and 50+ more games. Updated daily at midnight.
+url: https://wordsolverx.com
+baseurl: ""
+
+markdown: kramdown
+permalink: pretty
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+
+defaults:
+  - scope:
+      path: "pages"
+      type: "pages"
+    values:
+      layout: "default"
+      sitemap: true
