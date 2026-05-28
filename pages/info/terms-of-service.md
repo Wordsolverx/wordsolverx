@@ -42,8 +42,28 @@ WordSolverX is an independent website not affiliated with The New York Times, Wo
 
 All game names, logos, and trademarks mentioned on this site are the property of their respective owners. We use these names for identification and informational purposes only, with no intention of implying endorsement or affiliation.
 
+## Frequently Asked Questions
+
+### What are the terms of using WordSolverX?
+By using WordSolverX, you agree to use our content for personal and informational purposes only. Our answers, solver tools, and archives are provided as a free community resource and should not be republished or misused.
+
+### Is WordSolverX free to use?
+Yes, WordSolverX is completely free to use. No registration, subscription, or payment is required to access any of our daily answers, solver tools, or archives.
+
+### Can I redistribute WordSolverX content?
+Our content is provided for personal use and may not be reproduced, redistributed, or used for commercial purposes without explicit permission. All game names and trademarks belong to their respective owners.
+
+### How can I report a terms of service violation?
+If you believe someone is misusing WordSolverX content or violating our terms, please contact us through our contact page. We take all reports seriously and will investigate promptly.
+
+## Related Pages
+
+- [Privacy Policy](https://wordsolverx.com/privacy-policy) - Our data protection practices
+- [Disclaimer](https://wordsolverx.com/disclaimer) - Important legal disclaimers
+- [Contact Us](https://wordsolverx.com/contact) - Report issues or ask questions
+
 ## Conclusion
 
 WordSolverX is committed to being the best possible resource for puzzle enthusiasts. Through our daily answers, solver tools, and comprehensive archives, we provide everything players need to enjoy and succeed at their favorite puzzles. Thank you for visiting, and we hope you find our resources helpful.
 
-**Page URL:** https://wordsolver.tech/terms-of-service
+**Page URL:** https://wordsolverx.com/terms-of-service

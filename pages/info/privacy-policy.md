@@ -42,8 +42,28 @@ WordSolverX is an independent website not affiliated with The New York Times, Wo
 
 All game names, logos, and trademarks mentioned on this site are the property of their respective owners. We use these names for identification and informational purposes only, with no intention of implying endorsement or affiliation.
 
+## Frequently Asked Questions
+
+### Does WordSolverX collect personal data?
+WordSolverX operates with minimal data collection, storing only what is necessary for site functionality. We do not require registration and collect no personally identifiable information from our standard users.
+
+### Does WordSolverX sell user data?
+No, WordSolverX never sells user data to third parties. We take user privacy seriously and our data practices are designed to protect our users while providing a functional service.
+
+### Does WordSolverX use cookies?
+We use only essential cookies required for basic site functionality. We do not use tracking cookies or engage in cross-session user tracking. Our goal is to provide a clean, privacy-respecting experience.
+
+### How can I learn more about WordSolverX data practices?
+For full details about what data we collect and how we use it, please review this Privacy Policy page carefully. If you have additional questions, you can contact us through our contact page.
+
+## Related Pages
+
+- [Terms of Service](https://wordsolverx.com/terms-of-service) - Terms and conditions of use
+- [Disclaimer](https://wordsolverx.com/disclaimer) - Important legal disclaimers
+- [About WordSolverX](https://wordsolverx.com/about) - Learn more about our mission and values
+
 ## Conclusion
 
 WordSolverX is committed to being the best possible resource for puzzle enthusiasts. Through our daily answers, solver tools, and comprehensive archives, we provide everything players need to enjoy and succeed at their favorite puzzles. Thank you for visiting, and we hope you find our resources helpful.
 
-**Page URL:** https://wordsolver.tech/privacy-policy
+**Page URL:** https://wordsolverx.com/privacy-policy

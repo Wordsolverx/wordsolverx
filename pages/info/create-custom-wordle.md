@@ -42,8 +42,28 @@ WordSolverX is an independent website not affiliated with The New York Times, Wo
 
 All game names, logos, and trademarks mentioned on this site are the property of their respective owners. We use these names for identification and informational purposes only, with no intention of implying endorsement or affiliation.
 
+## Frequently Asked Questions
+
+### How do I create a custom Wordle puzzle?
+WordSolverX provides a free custom Wordle generator that lets you choose any word as the hidden answer. Simply enter your chosen word, generate the puzzle, and share the link with friends or family for them to solve.
+
+### Can I share my custom Wordle with others?
+Yes, once you create a custom Wordle puzzle, you receive a unique shareable link. Send this link to anyone and they can play your custom puzzle using the standard Wordle guessing mechanics.
+
+### What word lengths are supported for custom Wordle?
+Our custom Wordle generator supports word lengths from 3 to 12 letters, giving you full flexibility to create puzzles at any difficulty level from quick challenges to extended vocabulary tests.
+
+### Is the custom Wordle generator free?
+Yes, the custom Wordle generator on WordSolverX is completely free to use with no registration required. Create as many custom puzzles as you want and share them with anyone.
+
+## Related Pages
+
+- [Wordle Solver](https://wordsolverx.com/wordle-solver) - Get help solving any Wordle puzzle
+- [5 Letter Wordle](https://wordsolverx.com/5-letter-wordle) - Play the classic 5-letter Wordle
+- [Multidle](https://wordsolverx.com/multidle) - Play 4 to 12 letter Wordle puzzles
+
 ## Conclusion
 
 WordSolverX is committed to being the best possible resource for puzzle enthusiasts. Through our daily answers, solver tools, and comprehensive archives, we provide everything players need to enjoy and succeed at their favorite puzzles. Thank you for visiting, and we hope you find our resources helpful.
 
-**Page URL:** https://wordsolver.tech/create-custom-wordle
+**Page URL:** https://wordsolverx.com/create-custom-wordle

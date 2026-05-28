@@ -42,8 +42,28 @@ WordSolverX is an independent website not affiliated with The New York Times, Wo
 
 All game names, logos, and trademarks mentioned on this site are the property of their respective owners. We use these names for identification and informational purposes only, with no intention of implying endorsement or affiliation.
 
+## Frequently Asked Questions
+
+### What puzzle archives does WordSolverX offer?
+WordSolverX maintains complete historical archives for over 20 puzzle games including Wordle, Quordle, Globle, Worldle, Contexto, Semantle, Phoodle, Waffle, and many more. Each archive is searchable and organized by date.
+
+### How far back do the archives go?
+Our archives date back to each game's launch. For example, the Wordle archive covers every puzzle from June 2021 to the present. Each game archive includes the complete history of all published solutions.
+
+### Are the puzzle archives updated in real time?
+All archives are updated daily as soon as new puzzle answers are verified. You can always find the most recent solution alongside the full history of past answers for every supported game.
+
+### Can I search the archives for a specific date or answer?
+Yes, every archive is fully searchable by date, puzzle number, or answer. This makes it easy to find specific puzzles or research patterns across historical data.
+
+## Related Pages
+
+- [Wordle Answer Archive](https://wordsolverx.com/wordle-answer-archive) - Complete Wordle answer history
+- [Quordle Archive](https://wordsolverx.com/quordle-archive) - All past Quordle answers
+- [Today's Puzzle Answers](https://wordsolverx.com/today) - Get today's answers for all puzzles
+
 ## Conclusion
 
 WordSolverX is committed to being the best possible resource for puzzle enthusiasts. Through our daily answers, solver tools, and comprehensive archives, we provide everything players need to enjoy and succeed at their favorite puzzles. Thank you for visiting, and we hope you find our resources helpful.
 
-**Page URL:** https://wordsolver.tech/archive
+**Page URL:** https://wordsolverx.com/archive
